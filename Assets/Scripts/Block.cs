@@ -26,7 +26,6 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DeadZone"))
         {
-            rb.constraints = RigidbodyConstraints2D.None;
             StartCoroutine(DestroyObject());
         }
         if (collision.gameObject.CompareTag("Obstructions"))
