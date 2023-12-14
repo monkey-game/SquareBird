@@ -8,6 +8,7 @@ TagManager:
   - DeadZone
   - Obstructions
   - Perfect
+  - Ground
   layers:
   - Default
   - TransparentFX
