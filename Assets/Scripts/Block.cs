@@ -35,7 +35,6 @@ public class Block : MonoBehaviour
             {
                 // Block không ở trên vật cản, rời khỏi player
                 transform.parent = null;
-                rb.constraints = RigidbodyConstraints2D.None;
                 isAttached = false;
             }           
         }
