@@ -9,6 +9,8 @@ TagManager:
   - Obstructions
   - Perfect
   - Ground
+  - WinLine
+  - Home
   layers:
   - Default
   - TransparentFX

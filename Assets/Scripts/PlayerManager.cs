@@ -7,14 +7,30 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject blockPrefab;
     [SerializeField] private LayerMask barrier;
+    [SerializeField] private GameObject winLine;
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
+    private bool isWinLine = false;
+        private bool isStop = false;
+    private int speed = 5;
     // Start is called before the first frame update
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Home"))
+        {
+            isStop = true;
+        }
+        if (collision.gameObject.CompareTag("WinLine"))
+        {
+            winLine.GetComponent<BoxCollider2D>().enabled = false;
+            isWinLine = true;
+        }
     }
     void Start()
     {
@@ -23,7 +39,13 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * Time.deltaTime * 5);
+        if (!isWinLine&& !isStop)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
+        }else if (isWinLine&& !isStop)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * 2);
+        }
         if (Input.GetMouseButtonDown(0))
         {
             // body.AddForce(Vector3.up);

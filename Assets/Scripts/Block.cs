@@ -22,6 +22,10 @@ public class Block : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             StartCoroutine(DestroyObject());
         }
+        if (collision.gameObject.CompareTag("WinLine"))
+        {
+            Destroy(gameObject);
+        }
         if (collision.gameObject.CompareTag("Obstructions"))
         {
             Vector3 blockPosition = transform.position;
