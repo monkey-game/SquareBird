@@ -20,14 +20,6 @@ public class Block : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Obstructions"))
-        {
-            if (!isBarrierDown())
-            {
-                gameObject.transform.parent = null;
-                StartCoroutine(DestroyObject());
-            }
-        }
     }
     // Start is called before the first frame update
     void Start()
