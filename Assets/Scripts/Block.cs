@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -8,6 +8,7 @@ public class Block : MonoBehaviour
     [SerializeField] private LayerMask barrier;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
+    bool isAttached = true; // Biến để xác định nếu block đang nằm trên player
 
     private void Awake()
     {
@@ -18,7 +19,25 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DeadZone"))
         {
-            Destroy(gameObject);
+            rb.constraints = RigidbodyConstraints2D.None;
+            StartCoroutine(DestroyObject());
+        }
+        if (collision.gameObject.CompareTag("Obstructions"))
+        {
+            Vector3 blockPosition = transform.position;
+            Vector3 obstaclePosition = collision.gameObject.transform.position;
+            if (blockPosition.y > obstaclePosition.y)
+            {
+                // Block ở trên vật cản, giữ nguyên
+                isAttached = true;
+            }
+            else
+            {
+                // Block không ở trên vật cản, rời khỏi player
+                transform.parent = null;
+                rb.constraints = RigidbodyConstraints2D.None;
+                isAttached = false;
+            }           
         }
     }
     // Start is called before the first frame update
@@ -30,25 +49,13 @@ public class Block : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isBarrierRight()&& !isBarrierDown())
-        {
-            gameObject.transform.parent = null;
-            StartCoroutine(DestroyObject());
-        }
     }
-    
     IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(2);
-        if(gameObject.transform.parent == null) 
-        {
+        yield return new WaitForSeconds(5);
+ 
             Destroy(gameObject);
-        }
-    }
-    bool isBarrierRight()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, barrier);
-        return raycastHit2D.collider != null;
+       
     }
     bool isBarrierDown()
     {
