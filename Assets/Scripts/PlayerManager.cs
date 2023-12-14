@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour
     void Jump()
     {
         // Đặt vận tốc Y để player nhảy lên
-         body.velocity = new Vector2(body.velocity.x, 5f);
+         body.velocity = new Vector2(body.velocity.x, 2f);
        // body.AddForce(new Vector3(0, 3, 0));
     }
 
