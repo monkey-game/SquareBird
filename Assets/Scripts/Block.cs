@@ -8,12 +8,19 @@ public class Block : MonoBehaviour
     [SerializeField] private LayerMask barrier;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
-    bool isAttached = true; // Biến để xác định nếu block đang nằm trên player
-
+    bool isAttached = true; 
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+    }
+    private void Start()
+    {
+        FindObjectOfType<PlayerManager>().eventDestroy.AddListener(DestroyByWin);
+    }
+    private void OnDestroy()
+    {
+        FindObjectOfType<PlayerManager>().eventDestroy.RemoveListener(DestroyByWin);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -22,41 +29,29 @@ public class Block : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             StartCoroutine(DestroyObject());
         }
-        if (collision.gameObject.CompareTag("WinLine"))
-        {
-            Destroy(gameObject);
-        }
         if (collision.gameObject.CompareTag("Obstructions"))
         {
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;
             if (blockPosition.y > obstaclePosition.y)
             {
-                // Block ở trên vật cản, giữ nguyên
                 isAttached = true;
             }
             else
             {
-                // Block không ở trên vật cản, rời khỏi player
                 transform.parent = null;
                 isAttached = false;
             }           
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
     IEnumerator DestroyObject()
     {
         yield return new WaitForSeconds(5);
- 
+
+    //    PlayerManager.listBlock.RemoveAll(x => x.gameObject.name.Equals(gameObject.name));
             Destroy(gameObject);
        
     }
@@ -64,6 +59,10 @@ public class Block : MonoBehaviour
     {
         RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, barrier);
         return raycastHit2D.collider != null;
+    }
+    void DestroyByWin()
+    {
+        Destroy(gameObject);
     }
 
 }

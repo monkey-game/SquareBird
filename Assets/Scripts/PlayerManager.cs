@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject blockPrefab;
     [SerializeField] private LayerMask barrier;
     [SerializeField] private GameObject winLine;
+    public UnityEvent eventDestroy;
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
     private bool isWinLine = false;
-        private bool isStop = false;
+    private bool isStop = false;
     private int speed = 5;
     // Start is called before the first frame update
     private void Awake()
@@ -27,9 +27,10 @@ public class PlayerManager : MonoBehaviour
             isStop = true;
         }
         if (collision.gameObject.CompareTag("WinLine"))
-        {
-            winLine.GetComponent<BoxCollider2D>().enabled = false;
+        {            
             isWinLine = true;
+            winLine.GetComponent<BoxCollider2D>().enabled = false;
+            eventDestroy?.Invoke();
         }
     }
     void Start()
@@ -60,9 +61,7 @@ public class PlayerManager : MonoBehaviour
 
     void Jump()
     {
-        // Đặt vận tốc Y để player nhảy lên
          body.velocity = new Vector2(body.velocity.x, 2f);
-       // body.AddForce(new Vector3(0, 3, 0));
     }
 
     void CreateBlockUnderPlayer()
