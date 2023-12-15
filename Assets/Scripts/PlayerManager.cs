@@ -30,7 +30,7 @@ public class PlayerManager : MonoBehaviour
             isStop = true;
         }
         if (collision.gameObject.CompareTag("WinLine"))
-        {            
+        {
             isWinLine = true;
             winLine.GetComponent<BoxCollider2D>().enabled = false;
             eventDestroy?.Invoke();
@@ -40,6 +40,10 @@ public class PlayerManager : MonoBehaviour
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;
             if (blockPosition.y < obstaclePosition.y)
+            {
+                IdleDie();
+            }
+            if((blockPosition.y - obstaclePosition.y) < 0.95f)
             {
                 IdleDie();
             }

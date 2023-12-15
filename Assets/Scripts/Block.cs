@@ -32,15 +32,18 @@ public class Block : MonoBehaviour
         {
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;
-            if (blockPosition.y > obstaclePosition.y)
-            {
-                isAttached = true;
-            }
-            else
+            if (blockPosition.y < obstaclePosition.y)
             {
                 transform.parent = null;
                 isAttached = false;
-            }           
+            } 
+        }
+        if (collision.gameObject.CompareTag("Block")&&!collision.gameObject.CompareTag("Player"))
+        {
+            if(transform.parent != null)
+            {
+                transform.position = new Vector3(collision.transform.position.x,transform.position.y,transform.position.z);
+            }
         }
     }
     // Start is called before the first frame update
