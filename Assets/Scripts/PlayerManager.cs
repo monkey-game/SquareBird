@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Unity.VisualStudio.Editor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
+    private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
     private int speed = 5;
@@ -19,6 +21,7 @@ public class PlayerManager : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -32,7 +35,24 @@ public class PlayerManager : MonoBehaviour
             winLine.GetComponent<BoxCollider2D>().enabled = false;
             eventDestroy?.Invoke();
         }
+        if (collision.gameObject.CompareTag("Obstructions"))
+        {
+            Vector3 blockPosition = transform.position;
+            Vector3 obstaclePosition = collision.gameObject.transform.position;
+            if (blockPosition.y < obstaclePosition.y)
+            {
+                IdleDie();
+            }
+        }
     }
+
+    private void IdleDie()
+    {
+        isStop = true;
+        animator.SetTrigger("IsDie");
+        body.AddForce(Vector3.left * 7f, (ForceMode2D)ForceMode.Impulse);
+    }
+
     void Start()
     {
     }
