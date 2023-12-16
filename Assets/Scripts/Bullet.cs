@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float speed = 1f;
+    private float speed = 10f;
     private void OnCollisionEnter2D(Collision2D collision)
     {
     }
@@ -13,10 +13,14 @@ public class Bullet : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right*Time.deltaTime * speed);
+        transform.Translate(Vector3.right * speed *Time.deltaTime);
     }
 }

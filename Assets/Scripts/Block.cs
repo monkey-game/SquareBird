@@ -35,13 +35,14 @@ public class Block : MonoBehaviour
             if (blockPosition.y < obstaclePosition.y)
             {
                 transform.parent = null;
-                isAttached = false;
+                isAttached = false;               
             } 
         }
-        if (collision.gameObject.CompareTag("Block")&&!collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Block"))
         {
             if(transform.parent != null)
             {
+                if(transform.position.x - collision.transform.position.x < 0.1f)
                 transform.position = new Vector3(collision.transform.position.x,transform.position.y,transform.position.z);
             }
         }
@@ -56,6 +57,9 @@ public class Block : MonoBehaviour
     //    PlayerManager.listBlock.RemoveAll(x => x.gameObject.name.Equals(gameObject.name));
             Destroy(gameObject);
        
+    }
+    private void Update()
+    {
     }
     bool isBarrierDown()
     {

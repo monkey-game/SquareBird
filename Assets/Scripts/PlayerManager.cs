@@ -1,4 +1,5 @@
 ﻿using Microsoft.Unity.VisualStudio.Editor;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,15 +10,18 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private LayerMask barrier;
     [SerializeField] private GameObject winLine;
     [SerializeField] private GameObject BulletOb;
+    [SerializeField] private float interval;
     public UnityEvent eventDestroy;
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
-    private GameObject lastBullet;
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
     private int speed = 5;
+    private float nextBulletTime;
+    private bool StartShooting = false;
+    private int count = 0;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -52,13 +56,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void IdleDie()
-    {
-        isStop = true;
-        animator.SetTrigger("IsDie");
-        body.AddForce(Vector3.left * 4f, (ForceMode2D)ForceMode.Impulse);
-    }
-
     void Start()
     {
     }
@@ -66,36 +63,52 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isWinLine&& !isStop)
+        CheckWin();     
+        if (StartShooting)
+        {
+            CreateBullet();
+        }
+        if(count == 3)
+        {
+            StartShooting = true;
+        }
+    }
+
+    private void CheckWin()
+    {
+        if (!isWinLine && !isStop)
         {
             transform.Translate(Vector3.right * Time.deltaTime * speed);
-        }else if (isWinLine&& !isStop)
+            if (Input.GetMouseButtonDown(0))
+            {
+                Jump();
+                CreateBlockUnderPlayer();
+            }
+        }
+        else if (isWinLine && !isStop)
         {
             transform.Translate(Vector3.right * Time.deltaTime * 2);
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            // body.AddForce(Vector3.up);
-            //   block[isCount].SetActive(true);
-            //   isCount++;
-            //body.velocity = new Vector2(body.velocity.x, 5f);
-            Jump();
-            CreateBlockUnderPlayer();
+    }
 
+    private void CreateBullet()
+    {
+        if (Time.time > nextBulletTime)
+        {
+            nextBulletTime = Time.time + interval;
+            var bullet = Instantiate(BulletOb, transform.position + new Vector3(0.8f, -0.1f, 0), transform.rotation);
         }
+    }
+    private void IdleDie()
+    {
+        isStop = true;
+        animator.SetTrigger("IsDie");
+        body.AddForce(Vector3.left * 4f, (ForceMode2D)ForceMode.Impulse);
     }
 
     void Jump()
     {
          body.velocity = new Vector2(body.velocity.x, 2f);
-    }
-    void CreateBullet()
-    {
-        if(lastBullet == null)
-        {
-            lastBullet = Instantiate(BulletOb,transform.position + new Vector3(0.8f,0,0),Quaternion.identity);
-            lastBullet.SetActive(true);
-        }
     }
     void CreateBlockUnderPlayer()
     {
@@ -103,7 +116,6 @@ public class PlayerManager : MonoBehaviour
         {
             // Nếu chưa có block nào, tạo block dưới player
             lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
-            lastBlock.SetActive(true);
         }
         else
         {
@@ -111,13 +123,7 @@ public class PlayerManager : MonoBehaviour
             lastBlock.transform.position = lastBlock.transform.position - new Vector3(0, 0.7f, 0);
             GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
             lastBlock = newBlock; // Gán lastBlock là block vừa tạo
-            lastBlock.SetActive(true);
         }
-    }
-    bool isBarrierRight()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x,0), 0.1f, barrier);
-        return raycastHit2D.collider != null;
     }
     bool isBarrierDown()
     {
