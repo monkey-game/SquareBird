@@ -4523,11 +4523,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3f424687f21074f8fb6ab1b5605cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockPrefab: {fileID: 128185282}
+  BlockPre: {fileID: 0}
   barrier:
     serializedVersion: 2
     m_Bits: 128
   winLine: {fileID: 1623576862}
+  BulletOb: {fileID: 0}
   eventDestroy:
     m_PersistentCalls:
       m_Calls: []
@@ -9998,7 +9999,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653821462}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.183999, y: -0.26399994, z: 0}
+  m_LocalPosition: {x: -13.492, y: -0.496, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10052,9 +10053,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.012177452}
   serializedVersion: 2
-  m_Radius: 0.255
+  m_Radius: 0.212379
 --- !u!212 &1653821467
 SpriteRenderer:
   m_ObjectHideFlags: 0
