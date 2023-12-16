@@ -5,13 +5,15 @@ using UnityEngine.Events;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private GameObject BlockPre;
     [SerializeField] private LayerMask barrier;
     [SerializeField] private GameObject winLine;
+    [SerializeField] private GameObject BulletOb;
     public UnityEvent eventDestroy;
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
+    private GameObject lastBullet;
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
@@ -54,7 +56,7 @@ public class PlayerManager : MonoBehaviour
     {
         isStop = true;
         animator.SetTrigger("IsDie");
-        body.AddForce(Vector3.left * 7f, (ForceMode2D)ForceMode.Impulse);
+        body.AddForce(Vector3.left * 4f, (ForceMode2D)ForceMode.Impulse);
     }
 
     void Start()
@@ -87,20 +89,27 @@ public class PlayerManager : MonoBehaviour
     {
          body.velocity = new Vector2(body.velocity.x, 2f);
     }
-
+    void CreateBullet()
+    {
+        if(lastBullet == null)
+        {
+            lastBullet = Instantiate(BulletOb,transform.position + new Vector3(0.8f,0,0),Quaternion.identity);
+            lastBullet.SetActive(true);
+        }
+    }
     void CreateBlockUnderPlayer()
     {
         if (lastBlock == null)
         {
             // Nếu chưa có block nào, tạo block dưới player
-            lastBlock = Instantiate(blockPrefab, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
+            lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
             lastBlock.SetActive(true);
         }
         else
         {
             // Nếu đã có block, tạo block mới ở dưới block trước đó
             lastBlock.transform.position = lastBlock.transform.position - new Vector3(0, 0.7f, 0);
-            GameObject newBlock = Instantiate(blockPrefab, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
+            GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
             lastBlock = newBlock; // Gán lastBlock là block vừa tạo
             lastBlock.SetActive(true);
         }
