@@ -8,7 +8,9 @@ public class Block : MonoBehaviour
     [SerializeField] private LayerMask barrier;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
-    bool isAttached = true; 
+    bool isAttached = true;
+    private Vector3 PosParent;
+    private Vector3 PosChild;
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -60,6 +62,13 @@ public class Block : MonoBehaviour
     }
     private void Update()
     {
+        if(transform.parent != null)
+        {
+            PosParent = transform.parent.position;
+            PosChild = transform.position;
+            PosChild.x = PosParent.x - 0.1f;
+            transform.position = PosChild;
+        }
     }
     bool isBarrierDown()
     {
