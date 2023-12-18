@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
     [SerializeField] private LayerMask barrier;
+    [SerializeField] private GameObject player;
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb;
     bool isAttached = true;
@@ -15,6 +17,7 @@ public class Block : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        player = GameObject.Find("Player");
     }
     private void Start()
     {
@@ -33,12 +36,18 @@ public class Block : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstructions"))
         {
             Vector3 blockPosition = transform.position;
-            Vector3 obstaclePosition = collision.gameObject.transform.position;
-            if (blockPosition.y < obstaclePosition.y)
-            {
-                transform.parent = null;
-                isAttached = false;               
-            } 
+            Vector3 obstaclePosition = collision.gameObject.transform.position;           
+                if (blockPosition.y < obstaclePosition.y)
+                {
+                    isAttached = false;
+                }
+                if ((blockPosition.y - obstaclePosition.y) < 0.75f)
+                {
+                if (!isBarrierDown())
+                {
+                    isAttached = false;
+                }
+            }           
         }
         if (collision.gameObject.CompareTag("Block"))
         {
@@ -62,9 +71,9 @@ public class Block : MonoBehaviour
     }
     private void Update()
     {
-        if(transform.parent != null)
+        if (isAttached)
         {
-            PosParent = transform.parent.position;
+            PosParent = player.transform.position;
             PosChild = transform.position;
             PosChild.x = PosParent.x - 0.1f;
             transform.position = PosChild;
@@ -73,6 +82,11 @@ public class Block : MonoBehaviour
     bool isBarrierDown()
     {
         RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, barrier);
+        return raycastHit2D.collider != null;
+    }
+    bool isBarrierleft()
+    {
+        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(rb.velocity.x *-1,0), 0.1f, barrier);
         return raycastHit2D.collider != null;
     }
     void DestroyByWin()

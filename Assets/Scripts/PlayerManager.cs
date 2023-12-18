@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
-    private int speed = 5;
+    private int speed = 3;
     private float nextBulletTime;
     private bool StartShooting = false;
     private int count = 0;
@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour
         {
             isWinLine = true;
             winLine.GetComponent<BoxCollider2D>().enabled = false;
-            eventDestroy?.Invoke();
+            StartCoroutine(WaitForDestroyBlock());
         }
         if (collision.gameObject.CompareTag("Obstructions"))
         {
@@ -53,7 +53,15 @@ public class PlayerManager : MonoBehaviour
             {
                 IdleDie();
             }
+        }       
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Perfect"))
+        {
+            count++;
         }
+
     }
 
     void Start()
@@ -71,6 +79,7 @@ public class PlayerManager : MonoBehaviour
         if(count == 3)
         {
             StartShooting = true;
+            StartCoroutine(StopCreateBullet());
         }
     }
 
@@ -90,6 +99,17 @@ public class PlayerManager : MonoBehaviour
             transform.Translate(Vector3.right * Time.deltaTime * 2);
         }
     }
+    IEnumerator StopCreateBullet()
+    {
+        yield return new WaitForSeconds(2);
+        StartShooting = false;
+        count = 0;
+    }
+    IEnumerator WaitForDestroyBlock()
+    {
+        yield return new WaitForSeconds(2);
+        eventDestroy?.Invoke();
+    }
 
     private void CreateBullet()
     {
@@ -103,7 +123,8 @@ public class PlayerManager : MonoBehaviour
     {
         isStop = true;
         animator.SetTrigger("IsDie");
-        body.AddForce(Vector3.left * 4f, (ForceMode2D)ForceMode.Impulse);
+        int VaCham = Random.Range(1, 4);
+        body.AddForce(Vector3.left * VaCham, (ForceMode2D)ForceMode.Impulse);
     }
 
     void Jump()
@@ -115,13 +136,13 @@ public class PlayerManager : MonoBehaviour
         if (lastBlock == null)
         {
             // Nếu chưa có block nào, tạo block dưới player
-            lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
+            lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
         }
         else
         {
             // Nếu đã có block, tạo block mới ở dưới block trước đó
             lastBlock.transform.position = lastBlock.transform.position - new Vector3(0, 0.7f, 0);
-            GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity,transform);
+            GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
             lastBlock = newBlock; // Gán lastBlock là block vừa tạo
         }
     }
