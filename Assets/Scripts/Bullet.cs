@@ -6,9 +6,6 @@ public class Bullet : MonoBehaviour
 {
     // Start is called before the first frame update
     private float speed = 10f;
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
     void Start()
     {
         
@@ -17,7 +14,6 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
     // Update is called once per frame
     void Update()
     {

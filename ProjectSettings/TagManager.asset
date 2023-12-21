@@ -11,6 +11,8 @@ TagManager:
   - Ground
   - WinLine
   - Home
+  - Trap
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Block
   - Barrier
   - Ground
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -53,4 +55,7 @@ TagManager:
     locked: 0
   - name: WinLayer
     uniqueID: 4135751025
+    locked: 0
+  - name: UI
+    uniqueID: 1394116125
     locked: 0

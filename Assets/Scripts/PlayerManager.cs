@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
             winLine.GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(WaitForDestroyBlock());
         }
-        if (collision.gameObject.CompareTag("Obstructions"))
+        if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;
@@ -75,8 +75,9 @@ public class PlayerManager : MonoBehaviour
         if (StartShooting)
         {
             CreateBullet();
+            eventDestroy?.Invoke();
         }
-        if(count == 3)
+        if (count > 3)
         {
             StartShooting = true;
             StartCoroutine(StopCreateBullet());
@@ -101,7 +102,7 @@ public class PlayerManager : MonoBehaviour
     }
     IEnumerator StopCreateBullet()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(5);
         StartShooting = false;
         count = 0;
     }
@@ -123,7 +124,7 @@ public class PlayerManager : MonoBehaviour
     {
         isStop = true;
         animator.SetTrigger("IsDie");
-        int VaCham = Random.Range(1, 4);
+        int VaCham = Random.Range(2, 3);
         body.AddForce(Vector3.left * VaCham, (ForceMode2D)ForceMode.Impulse);
     }
 
@@ -145,10 +146,5 @@ public class PlayerManager : MonoBehaviour
             GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
             lastBlock = newBlock; // Gán lastBlock là block vừa tạo
         }
-    }
-    bool isBarrierDown()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, barrier);
-        return raycastHit2D.collider != null;
     }
 }

@@ -33,7 +33,7 @@ public class Block : MonoBehaviour
         {
             StartCoroutine(DestroyObject());
         }
-        if (collision.gameObject.CompareTag("Obstructions"))
+        if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;           
@@ -48,14 +48,6 @@ public class Block : MonoBehaviour
                     isAttached = false;
                 }
             }           
-        }
-        if (collision.gameObject.CompareTag("Block"))
-        {
-            if(transform.parent != null)
-            {
-                if(transform.position.x - collision.transform.position.x < 0.1f)
-                transform.position = new Vector3(collision.transform.position.x,transform.position.y,transform.position.z);
-            }
         }
     }
     // Start is called before the first frame update
