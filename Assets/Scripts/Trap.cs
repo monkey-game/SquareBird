@@ -6,11 +6,23 @@ using UnityEngine;
 public class Trap : MonoBehaviour
 {
     // Start is called before the first frame update
+    private SpriteRenderer sprite;
+    private ParticleSystem _particleSystem;
+    private BoxCollider2D _boxCollider;
+    private void Awake()
+    {
+        _particleSystem = GetComponent<ParticleSystem>();
+        sprite = GetComponent<SpriteRenderer>();
+        _boxCollider = GetComponent<BoxCollider2D>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Destroy(gameObject);
+            _boxCollider.enabled = false;
+            _particleSystem.Play();
+            sprite.enabled = false;
+            Destroy(gameObject,1);
         }
     }
     void Start()

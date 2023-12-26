@@ -50,12 +50,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 3947273233
-    locked: 0
   - name: WinLayer
     uniqueID: 4135751025
     locked: 0
   - name: UI
     uniqueID: 1394116125
+    locked: 0
+  - name: Player
+    uniqueID: 2730024119
+    locked: 0
+  - name: Bullet
+    uniqueID: 3884402077
     locked: 0

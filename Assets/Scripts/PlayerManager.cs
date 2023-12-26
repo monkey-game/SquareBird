@@ -34,13 +34,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Home"))
         {
             isStop = true;
-        }
-        if (collision.gameObject.CompareTag("WinLine"))
-        {
-            isWinLine = true;
-            winLine.GetComponent<BoxCollider2D>().enabled = false;
-            StartCoroutine(WaitForDestroyBlock());
-        }
+        }     
         if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.position;
@@ -60,6 +54,11 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Perfect"))
         {
             count++;
+        }
+        if (collision.gameObject.CompareTag("WinLine"))
+        {
+            isWinLine = true;
+            StartCoroutine(WaitForDestroyBlock());
         }
 
     }

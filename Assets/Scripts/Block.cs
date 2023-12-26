@@ -43,7 +43,7 @@ public class Block : MonoBehaviour
                 }
                 if ((blockPosition.y - obstaclePosition.y) < 0.75f)
                 {
-                if (!isBarrierDown())
+                if (!isBarrierleft())
                 {
                     isAttached = false;
                 }
