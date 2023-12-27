@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject winLine;
     [SerializeField] private GameObject BulletOb;
     [SerializeField] private float interval;
+    [SerializeField] private GameObject CanvasNext;
     public UnityEvent eventDestroy;
     private BoxCollider2D boxCollider;
     private Rigidbody2D body;
@@ -21,7 +22,6 @@ public class PlayerManager : MonoBehaviour
     private int speed = 3;
     private float nextBulletTime;
     private bool StartShooting = false;
-    private int count = 0;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Home"))
         {
             isStop = true;
+            CanvasNext.SetActive(true);
         }     
         if (collision.gameObject.CompareTag("Trap"))
         {
@@ -50,17 +51,20 @@ public class PlayerManager : MonoBehaviour
         }       
     }
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Perfect"))
-        {
-            count++;
-        }
+    {     
         if (collision.gameObject.CompareTag("WinLine"))
         {
             isWinLine = true;
             StartCoroutine(WaitForDestroyBlock());
         }
 
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Perfect"))
+        {
+            GameController.CountPerfect++;
+        }
     }
 
     void Start()
@@ -70,16 +74,19 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckWin();     
-        if (StartShooting)
+        if (MainMenu.isStartGame)
         {
-            CreateBullet();
-            eventDestroy?.Invoke();
-        }
-        if (count > 3)
-        {
-            StartShooting = true;
-            StartCoroutine(StopCreateBullet());
+            CheckWin();
+            if (StartShooting)
+            {
+                CreateBullet();
+                eventDestroy?.Invoke();
+            }
+            if (GameController.CountPerfect >= 3)
+            {
+                StartShooting = true;
+                StartCoroutine(StopCreateBullet());
+            }
         }
     }
 
@@ -103,7 +110,8 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         StartShooting = false;
-        count = 0;
+        GameController.CountPerfect = 0 ;
+        GameController.ResetBird = true;
     }
     IEnumerator WaitForDestroyBlock()
     {
@@ -135,15 +143,13 @@ public class PlayerManager : MonoBehaviour
     {
         if (lastBlock == null)
         {
-            // Nếu chưa có block nào, tạo block dưới player
             lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
         }
         else
         {
-            // Nếu đã có block, tạo block mới ở dưới block trước đó
             lastBlock.transform.position = lastBlock.transform.position - new Vector3(0, 0.7f, 0);
             GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
-            lastBlock = newBlock; // Gán lastBlock là block vừa tạo
+            lastBlock = newBlock;
         }
     }
 }

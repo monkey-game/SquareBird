@@ -7,16 +7,15 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField]private Transform target;
     public float smoothTime = 0.3F;
-    private Vector3 velocity = Vector3.zero;
+    private Vector3 newPos;
 
     private void LateUpdate()
     {
-        // Define a target position above and behind the target transform
-        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 2, -10));
-        targetPosition.y = Mathf.Max(targetPosition.y, 2f);
-
-        // Smoothly move the camera towards that target position
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        if (MainMenu.isStartGame)
+        {          
+            newPos = new Vector3(target.transform.position.x+2.55f,target.transform.position.y+3.73f,target.transform.position.z-10);
+            transform.position = newPos;
+        }
     }
     void Update()
     {
