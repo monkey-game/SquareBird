@@ -41,13 +41,20 @@ public class Block : MonoBehaviour
                 {
                     isAttached = false;
                 }
-                if ((blockPosition.y - obstaclePosition.y) < 0.75f)
+                if ((blockPosition.y - obstaclePosition.y) < 0.85f)
                 {
                 if (!isBarrierleft())
                 {
                     isAttached = false;
                 }
             }           
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Perfect"))
+        {
+            GameController.Instance.CountPerfect++;
         }
     }
     // Start is called before the first frame update

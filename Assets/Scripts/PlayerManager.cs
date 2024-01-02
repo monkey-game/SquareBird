@@ -11,22 +11,19 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject winLine;
     [SerializeField] private GameObject BulletOb;
     [SerializeField] private float interval;
-    [SerializeField] private GameObject CanvasNext;
     public UnityEvent eventDestroy;
-    private BoxCollider2D boxCollider;
     private Rigidbody2D body;
     private GameObject lastBlock;
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
-    private int speed = 3;
+    private int speed = 4;
     private float nextBulletTime;
     private bool StartShooting = false;
     // Start is called before the first frame update
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -34,12 +31,12 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Home"))
         {
             isStop = true;
-            CanvasNext.SetActive(true);
+            GameController.Instance.GameComplete();
         }     
         if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.position;
-            Vector3 obstaclePosition = collision.gameObject.transform.position;
+            Vector3 obstaclePosition = collision.gameObject.transform.position;          
             if (blockPosition.y < obstaclePosition.y)
             {
                 IdleDie();
@@ -47,6 +44,10 @@ public class PlayerManager : MonoBehaviour
             if((blockPosition.y - obstaclePosition.y) < 0.95f)
             {
                 IdleDie();
+            }
+            else
+            {
+                ScoreManager.Instance.scoreNow += 10;
             }
         }       
     }
@@ -57,14 +58,11 @@ public class PlayerManager : MonoBehaviour
             isWinLine = true;
             StartCoroutine(WaitForDestroyBlock());
         }
-
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
         if (collision.gameObject.CompareTag("Perfect"))
         {
-            GameController.CountPerfect++;
+            GameController.Instance.CountPerfect++;
         }
+
     }
 
     void Start()
@@ -82,7 +80,7 @@ public class PlayerManager : MonoBehaviour
                 CreateBullet();
                 eventDestroy?.Invoke();
             }
-            if (GameController.CountPerfect >= 3)
+            if (GameController.Instance.CountPerfect >= 3)
             {
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
@@ -110,8 +108,8 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         StartShooting = false;
-        GameController.CountPerfect = 0 ;
-        GameController.ResetBird = true;
+        GameController.Instance.CountPerfect = 0 ;
+        GameController.Instance.ResetBird = true;
     }
     IEnumerator WaitForDestroyBlock()
     {
@@ -133,6 +131,7 @@ public class PlayerManager : MonoBehaviour
         animator.SetTrigger("IsDie");
         int VaCham = Random.Range(2, 3);
         body.AddForce(Vector3.left * VaCham, (ForceMode2D)ForceMode.Impulse);
+        GameController.Instance.GameOver();
     }
 
     void Jump()
