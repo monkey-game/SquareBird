@@ -23,6 +23,7 @@ public class Trap : MonoBehaviour
             _particleSystem.Play();
             sprite.enabled = false;
             Destroy(gameObject,1);
+            ScoreManager.Instance.scoreNow += 10;
         }
     }
     void Start()

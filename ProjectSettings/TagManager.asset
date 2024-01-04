@@ -62,3 +62,6 @@ TagManager:
   - name: Bullet
     uniqueID: 3884402077
     locked: 0
+  - name: Shop
+    uniqueID: 2577471955
+    locked: 0

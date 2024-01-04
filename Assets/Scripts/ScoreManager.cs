@@ -36,7 +36,11 @@ public class ScoreManager : MonoBehaviour
     }
     public void SaveBestScore()
     {
-        PlayerPrefs.SetInt("BestScorePlayer", BestScore);
+        if (BestScore < scoreNow)
+        {
+            PlayerPrefs.SetInt("BestScorePlayer", BestScore);
+            BestScore = scoreNow;
+        }
     }
     public void LoadBestScore()
     {

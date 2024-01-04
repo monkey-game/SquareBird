@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     private GameObject ObSetting;
     private bool isPlay;
     [SerializeField]private GameObject CanvasPlayer;
+    [SerializeField] private GameObject UiShopGround;
     private void Awake()
     {
         CanvasStartGame = GameObject.Find("CanvasStartGame");
@@ -28,6 +29,10 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             animation.Play();
             isPlay = true;
         }
+    }
+    public void OnClickShopGround()
+    {
+        UiShopGround.SetActive(true);
     }
 
     public void OnPointerClick(PointerEventData eventData)

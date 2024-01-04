@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
             {
                 IdleDie();
             }
-            if((blockPosition.y - obstaclePosition.y) < 0.95f)
+            else if((blockPosition.y - obstaclePosition.y) < 0.95f)
             {
                 IdleDie();
             }
