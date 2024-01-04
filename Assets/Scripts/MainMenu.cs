@@ -30,10 +30,6 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             isPlay = true;
         }
     }
-    public void OnClickShopGround()
-    {
-        UiShopGround.SetActive(true);
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
