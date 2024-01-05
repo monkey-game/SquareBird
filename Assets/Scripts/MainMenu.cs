@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     private GameObject ObSetting;
     private bool isPlay;
     [SerializeField]private GameObject CanvasPlayer;
-    [SerializeField] private GameObject UiShopGround;
+    [SerializeField]private GameObject UiShopGround;
+    [SerializeField]private Transform TransformPlayer;
     private void Awake()
     {
         CanvasStartGame = GameObject.Find("CanvasStartGame");
@@ -36,6 +37,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         isStartGame = true;       
         Debug.Log("StartGame");
         CanvasStartGame.SetActive(false);
+        CanvasStartGame.transform.parent = TransformPlayer;
         CanvasPlayer.SetActive(true);
     }
 }
