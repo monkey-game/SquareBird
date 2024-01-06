@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
     public int scoreNow;
     public int BestScore;
     public string NamePlayer;
+    public int CoinPlayer;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,6 +25,7 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {
        LoadBestScore();
+        CoinPlayer = 1000;
     }
 
     // Update is called once per frame
