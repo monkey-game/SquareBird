@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
-    private int speed = 7;
+    private int speed = 2;
     private float nextBulletTime;
     private bool StartShooting = false;
     // Start is called before the first frame update

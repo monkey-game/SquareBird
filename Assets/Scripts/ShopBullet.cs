@@ -50,7 +50,6 @@ public class ShopBullet : Shop
     public override void UpdateUI()
     {
         prefabBullet.GetComponent<SpriteRenderer>().sprite = SpriteChange;
-        UIShopBullet.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }

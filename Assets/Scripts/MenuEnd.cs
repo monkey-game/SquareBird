@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class MenuEnd : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Transform player;
+    [SerializeField]private Transform HomePos;
+    public void OnClickRestart()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        player.position = HomePos.position;
     }
 }
