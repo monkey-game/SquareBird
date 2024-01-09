@@ -16,11 +16,17 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject CanvasPlayer;
     [SerializeField] private GameObject CanvasGameOver;
     [SerializeField] private GameObject CanvasGameComplete;
+    public string NameBird;
     public short CountPerfect;
     public short Score;
-    private byte Level;
+    public byte Level;
     public bool ResetBird = false;
     public byte[] ListScore = {10,10,11,11,12,12,13};
+    public bool isNextLevel = false;
+    private void Awake()
+    {
+      //  DontDestroyOnLoad(this);
+    }
     private void Start()
     {
         if (Instance == null)
@@ -90,5 +96,6 @@ public class GameController : MonoBehaviour
         CanvasGameComplete.SetActive(true);
         ResetBirdBar();
         ScoreManager.Instance.SaveBestScore();
+        Level++;
     }
 }

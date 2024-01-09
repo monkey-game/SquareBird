@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
-    private int speed = 4;
+    private int speed = 7;
     private float nextBulletTime;
     private bool StartShooting = false;
     // Start is called before the first frame update
@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
         {
             isStop = true;
             GameController.Instance.GameComplete();
+            isStop = false;
+            isWinLine = false;
         }     
         if (collision.gameObject.CompareTag("Trap"))
         {
@@ -44,11 +46,7 @@ public class PlayerManager : MonoBehaviour
             else if((blockPosition.y - obstaclePosition.y) < 0.95f)
             {
                 IdleDie();
-            }
-            else
-            {
-                ScoreManager.Instance.scoreNow += 10;
-            }
+            }           
         }       
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -101,7 +99,7 @@ public class PlayerManager : MonoBehaviour
         }
         else if (isWinLine && !isStop)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * 2);
+            transform.Translate(Vector3.right * Time.deltaTime * speed /2);
         }
     }
     IEnumerator StopCreateBullet()
@@ -129,6 +127,7 @@ public class PlayerManager : MonoBehaviour
     {
         isStop = true;
         animator.SetTrigger("IsDie");
+        eventDestroy?.Invoke();
         int VaCham = Random.Range(2, 3);
         body.AddForce(Vector3.left * VaCham, (ForceMode2D)ForceMode.Impulse);
         GameController.Instance.GameOver();

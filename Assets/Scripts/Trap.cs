@@ -19,11 +19,7 @@ public class Trap : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            _boxCollider.enabled = false;
-            _particleSystem.Play();
-            sprite.enabled = false;
-            Destroy(gameObject,1);
-            ScoreManager.Instance.scoreNow += 10;
+            Destroy(gameObject);
         }
     }
     void Start()

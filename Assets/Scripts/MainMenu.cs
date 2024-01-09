@@ -10,9 +10,12 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     private GameObject ObSetting;
     private bool isPlay;
     [SerializeField]private GameObject CanvasPlayer;
-    [SerializeField]private GameObject UiShopGround;
     [SerializeField]private Transform TransformPlayer;
     private void Awake()
+    {
+      //  DontDestroyOnLoad(gameObject);     
+    }
+    private void Start()
     {
         CanvasStartGame = GameObject.Find("CanvasStartGame");
         ObSetting = GameObject.Find("Setting");
