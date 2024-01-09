@@ -73,6 +73,7 @@ public class GameController : MonoBehaviour
             bird.SetActive(false);
         }
         ResetBird = false;
+        sliderBar.value = 0;
     }
     private void UpdateTimeBar(float value)
     {
