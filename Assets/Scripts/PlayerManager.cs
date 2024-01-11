@@ -1,5 +1,4 @@
-﻿using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     private Animator animator;
     private bool isWinLine = false;
     private bool isStop = false;
-    private int speed = 2;
+    private int speed = 5;
     private float nextBulletTime;
     private bool StartShooting = false;
     // Start is called before the first frame update
@@ -33,7 +32,6 @@ public class PlayerManager : MonoBehaviour
             isStop = true;
             GameController.Instance.GameComplete();
             isStop = false;
-            isWinLine = false;
         }     
         if (collision.gameObject.CompareTag("Trap"))
         {
@@ -43,7 +41,7 @@ public class PlayerManager : MonoBehaviour
             {
                 IdleDie();
             }
-            else if((blockPosition.y - obstaclePosition.y) < 0.95f)
+            else if((blockPosition.y - obstaclePosition.y) < 0.75f)
             {
                 IdleDie();
             }           
@@ -53,8 +51,8 @@ public class PlayerManager : MonoBehaviour
     {     
         if (collision.gameObject.CompareTag("WinLine"))
         {
-            isWinLine = true;
             StartCoroutine(WaitForDestroyBlock());
+            StopBullet();
         }
         if (collision.gameObject.CompareTag("Perfect"))
         {
@@ -76,6 +74,7 @@ public class PlayerManager : MonoBehaviour
             if (StartShooting)
             {
                 CreateBullet();
+                body.gravityScale = 4;
                 eventDestroy?.Invoke();
             }
             if (GameController.Instance.CountPerfect >= 3)
@@ -88,27 +87,30 @@ public class PlayerManager : MonoBehaviour
 
     private void CheckWin()
     {
-        if (!isWinLine && !isStop)
+        if (!isStop)
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
+            transform.Translate(Vector2.right * Time.deltaTime * speed);
             if (Input.GetMouseButtonDown(0))
             {
                 Jump();
                 CreateBlockUnderPlayer();
             }
         }
-        else if (isWinLine && !isStop)
-        {
-            transform.Translate(Vector3.right * Time.deltaTime * speed /2);
-        }
     }
     IEnumerator StopCreateBullet()
     {
         yield return new WaitForSeconds(5);
-        StartShooting = false;
-        GameController.Instance.CountPerfect = 0 ;
-        GameController.Instance.ResetBird = true;
+        StopBullet();
     }
+
+    private void StopBullet()
+    {
+        StartShooting = false;
+        GameController.Instance.CountPerfect = 0;
+        GameController.Instance.ResetBird = true;
+        body.gravityScale = 1;
+    }
+
     IEnumerator WaitForDestroyBlock()
     {
         yield return new WaitForSeconds(2);

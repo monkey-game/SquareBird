@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     bool isAttached = true;
     private Vector3 PosParent;
     private Vector3 PosChild;
+    private bool isHittingWall;
+
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -41,12 +43,10 @@ public class Block : MonoBehaviour
                 {
                     isAttached = false;
                 }
-                if ((blockPosition.y - obstaclePosition.y) < 0.85f)
-                {
-                if (!isBarrierleft())
+            if ((blockPosition.y - obstaclePosition.y) < 0.75f) ;
                 {
                     isAttached = false;
-                }
+                
             }           
         }
     }
@@ -77,16 +77,9 @@ public class Block : MonoBehaviour
             PosChild.x = PosParent.x - 0.1f;
             transform.position = PosChild;
         }
-    }
-    bool isBarrierDown()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, barrier);
-        return raycastHit2D.collider != null;
-    }
-    bool isBarrierleft()
-    {
-        RaycastHit2D raycastHit2D = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(rb.velocity.x *-1,0), 0.1f, barrier);
-        return raycastHit2D.collider != null;
+
+        // Nếu có va chạm, xác định là đang chạm vào tường
+            // Xử lý khi không có va chạm
     }
     void DestroyByWin()
     {

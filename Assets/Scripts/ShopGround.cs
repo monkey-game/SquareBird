@@ -34,7 +34,7 @@ public class ShopGround : Shop
     }
     private void Update()
     {
-        textCoin.text = ScoreManager.Instance.CoinPlayer.ToString();
+        textCoin.text = ScoreManager.Instance.Coin.ToString();
     }
     private void OnDisable()
     {
@@ -59,9 +59,9 @@ public class ShopGround : Shop
             spriteBGround = BGround[index];
             UpdateUI();
         }
-        if(ScoreManager.Instance.CoinPlayer >= items[index].price)
+        if(ScoreManager.Instance.Coin >= items[index].price)
         {
-            ScoreManager.Instance.CoinPlayer-= items[index].price;
+            ScoreManager.Instance.Coin-= items[index].price;
             items[index].isUnlocker = true;
             SkinGround[index].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
             SkinGround[index].GetComponentInChildren<Text>().enabled = false;

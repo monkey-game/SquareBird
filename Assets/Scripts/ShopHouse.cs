@@ -4,8 +4,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-
 public class ShopHouse : Shop
 {
     [SerializeField] private GameObject prefabHouse;
