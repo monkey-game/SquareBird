@@ -27,7 +27,7 @@ public class PlayerLogin : MonoBehaviour
             string name = PlayGamesPlatform.Instance.GetUserDisplayName();
             string id = PlayGamesPlatform.Instance.GetUserId();
             string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
-            PlayerBase player = new PlayerBase(id,name,0);
+            PlayerBase player = new PlayerBase(id,name);
         }
         else
         {

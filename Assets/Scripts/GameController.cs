@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour
         CanvasPlayer.SetActive(false);
         CanvasGameOver.SetActive(true);
         ResetBirdBar();
-        ScoreManager.Instance.SaveBestScore();
+        ScoreManager.Instance.SaveBestScore();    
     }
     public void GameComplete()
     {

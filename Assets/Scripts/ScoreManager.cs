@@ -11,7 +11,6 @@ public class ScoreManager : MonoBehaviour
     public int BestScore;
     public string NamePlayer;
     public int Coin;
-    public List<int> ListScore = new List<int>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,16 +26,17 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {    
         LoadBestScore();
-        LoadListScore();     
+        LoadCoin();
     }
 
     // Update is called once per frame
-    void Update()
-    {      
-    }
-    private void OnDestroy()
+    public void UpdateCoin()
     {
-        SaveListScorePlayer();
+        PlayerPrefs.SetInt("Coin",Coin);
+    }
+    public void LoadCoin()
+    {
+        PlayerPrefs.GetInt("Coin", Coin);
     }
     public void UpdateScore()
     {
@@ -52,32 +52,6 @@ public class ScoreManager : MonoBehaviour
             {
                 Debug.Log("Success");
             });
-        }
-        AddListScore();
-    }
-    public void AddListScore()
-    {
-        ListScore.Add(scoreNow);
-        ListScore = ListScore.OrderByDescending(x => x).ToList();
-    }
-    private void SaveListScorePlayer()
-    {
-        for(int i = 0; i<ListScore.Count;i++)
-        {
-            if (i == 10)
-                return;
-            PlayerPrefs.SetInt("Score_" + i, ListScore[i]);          
-        }
-    }
-    private void LoadListScore()
-    {
-        for (int i = 0; i < ListScore.Count; i++)
-        {
-            if (i==10)
-            {
-                return;
-            }
-            PlayerPrefs.GetInt("Score_" + i, ListScore[i]);
         }
     }
     public void LoadBestScore()
