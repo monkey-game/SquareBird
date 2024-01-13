@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     private int speed = 5;
     private float nextBulletTime;
     private bool StartShooting = false;
+    public static bool IsReset = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -81,7 +82,14 @@ public class PlayerManager : MonoBehaviour
             {
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
-            }
+            }         
+        }
+        if(IsReset)
+        {
+            animator.SetTrigger("IsReset");
+            IsReset= false;
+            isStop = false;
+            isWinLine = false;
         }
     }
 

@@ -34,7 +34,7 @@ public class ShopGround : Shop
     }
     private void Update()
     {
-        textCoin.text = ScoreManager.Instance.Coin.ToString();
+        textCoin.text = GameController.Instance.player.Coin.ToString();
     }
     private void OnDisable()
     {
@@ -47,7 +47,38 @@ public class ShopGround : Shop
         prefabBGround.GetComponent<SpriteRenderer>().sprite = spriteBGround;
         TrapBGround.GetComponent<SpriteRenderer>().sprite = spriteGround;
         TrapGround.GetComponent<SpriteRenderer>().sprite = spriteBGround;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UpdateSpriteTrap();
+        UpdateSpriteGround();
+       // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    private void UpdateSpriteTrap()
+    {
+        GameObject[] trap = GameObject.FindGameObjectsWithTag("Trap");
+        foreach(GameObject obj in trap) 
+        {
+            if(obj.layer == 7)
+            {
+                obj.GetComponent<SpriteRenderer>().sprite = spriteGround;
+            }else if(obj.layer == 11)
+            {
+                obj.GetComponent<SpriteRenderer>().sprite = spriteBGround;
+            }
+        }
+    }
+    private void UpdateSpriteGround()
+    {
+        GameObject[] trap = GameObject.FindGameObjectsWithTag("Ground");
+        foreach (GameObject obj in trap)
+        {
+            if (obj.layer == 8)
+            {
+                obj.GetComponent<SpriteRenderer>().sprite = spriteGround;
+            }
+            else if (obj.layer == 11)
+            {
+                obj.GetComponent<SpriteRenderer>().sprite = spriteBGround;
+            }
+        }
     }
 
     public override void BuyItem(int index)
@@ -57,11 +88,17 @@ public class ShopGround : Shop
             items[index].isUsed = true;
             spriteGround = Ground[index];
             spriteBGround = BGround[index];
+            ReloadList(items[index]);
+            if (GameController.Instance.player != null)
+            {
+                GameController.Instance.player.SpriteGround = spriteGround.name;
+                GameController.Instance.player.spriteBGround = spriteBGround.name;
+            }
             UpdateUI();
         }
-        if(ScoreManager.Instance.Coin >= items[index].price)
+        if(GameController.Instance.player.Coin >= items[index].price)
         {
-            ScoreManager.Instance.Coin-= items[index].price;
+            GameController.Instance.player.Coin-= items[index].price;
             items[index].isUnlocker = true;
             SkinGround[index].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
             SkinGround[index].GetComponentInChildren<Text>().enabled = false;
@@ -77,6 +114,16 @@ public class ShopGround : Shop
         }
         string combinedJson = string.Join("\n", JsonItem);
         File.WriteAllText(Application.persistentDataPath + "/dataShopGround.json", combinedJson);
+    }
+    private void ReloadList(ItemTemplate itemGround)
+    {
+        foreach (var item in items)
+        {
+            if(item != itemGround && item.isUnlocker)
+            {
+                item.isUsed = false;
+            }
+        }
     }
     private void LoadObjectFromItem()
     {

@@ -38,7 +38,7 @@ public class Block : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.localPosition;
-            Vector3 obstaclePosition = collision.gameObject.transform.position;           
+            Vector3 obstaclePosition = collision.gameObject.transform.position;
                 if (blockPosition.y < obstaclePosition.y)
                 {
                     isAttached = false;

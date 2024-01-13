@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject CanvasPlayer;
     [SerializeField] private GameObject CanvasGameOver;
     [SerializeField] private GameObject CanvasGameComplete;
+    [SerializeField] private Transform HomePos;
+    [SerializeField] private GameObject Player;
+    [SerializeField] private GameObject[] listMap;
+    private Transform TransOld;
     public string NameBird;
     public short CountPerfect;
     public short Score;
@@ -23,6 +28,10 @@ public class GameController : MonoBehaviour
     public bool ResetBird = false;
     public byte[] ListScore = {10,10,11,11,12,12,13};
     public bool isNextLevel = false;
+    public bool ResetGame = false;
+    private float TimeReset;
+    public PlayerBase player;
+    public bool LoadGame = false;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -36,12 +45,13 @@ public class GameController : MonoBehaviour
         {
             Destroy(Instance);
         }
+        LoadGame = true;
     }
     private void Update()
     {
         if (MainMenu.isStartGame)
         {
-            float currentTime = Time.time;
+            float currentTime = Time.time - TimeReset;
 
             float timeRatio = Mathf.Clamp01(currentTime / timePlay);
 
@@ -58,6 +68,15 @@ public class GameController : MonoBehaviour
             TextLevelNow.text = $"{Level}";
             TextNextLevel.text = $"{Level + 1}";
         }
+        else
+        {
+            TimeReset = Time.time;
+        }
+    }
+    private void OnDestroy()
+    {
+        player.Level = Level;
+        Util.SaveToPlayerJson(player);
     }
     private void UpdateBirdBar(short CountPerfect)
     {
@@ -73,7 +92,6 @@ public class GameController : MonoBehaviour
             bird.SetActive(false);
         }
         ResetBird = false;
-        sliderBar.value = 0;
     }
     private void UpdateTimeBar(float value)
     {
@@ -84,19 +102,37 @@ public class GameController : MonoBehaviour
     }
     public void GameOver()
     {
+        ResetBirdBar();
         MainMenu.isStartGame = false;
         CanvasPlayer.SetActive(false);
-        CanvasGameOver.SetActive(true);
-        ResetBirdBar();
+        CanvasGameOver.SetActive(true);       
         ScoreManager.Instance.SaveBestScore();    
     }
     public void GameComplete()
     {
+        ResetBirdBar();
         MainMenu.isStartGame = false;
         CanvasPlayer.SetActive(false);
         CanvasGameComplete.SetActive(true);
-        ResetBirdBar();
         ScoreManager.Instance.SaveBestScore();
         Level++;
+    }
+    public void OnClickNextButton()
+    {
+        TransOld = listMap[Level - 1].gameObject.transform;
+        Destroy(listMap[Level - 1].gameObject);
+        Instantiate(listMap[Level].gameObject, TransOld.position, Quaternion.identity);
+        Player.transform.position = HomePos.position;
+    }
+    public void LoadMap(byte level)
+    {
+        if (level > 0)
+        {
+            TransOld = listMap[0].gameObject.transform;
+            Destroy(listMap[0].gameObject);
+            Instantiate(listMap[level].gameObject, TransOld.position, Quaternion.identity);
+            Player.transform.position = HomePos.position;
+            Level = level;
+        }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 300ea8cf97bf4ca408ea32cf20b44abf
+guid: d0286f45cbcd7c2409a27c287716a96f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -101,17 +101,41 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_0
+      name: c6x8u1jq (1)_0
       rect:
         serializedVersion: 2
-        x: 94
-        y: 295
-        width: 527
-        height: 494
+        x: 54
+        y: 180
+        width: 382
+        height: 244
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb3eb101ea14e13429c07820846a1748
-      internalID: -1212050950
+      spriteID: 4c80075684c1a98478cfdf7b3bcaca6b
+      internalID: -1394365508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_1
+      name: c6x8u1jq (1)_1
       rect:
         serializedVersion: 2
-        x: 641
-        y: 296
-        width: 578
-        height: 396
+        x: 499
+        y: 180
+        width: 382
+        height: 244
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69505e9e159b3a74199c39be357489f5
-      internalID: 1183489337
+      spriteID: 7f85a5c3bc9b48a478eec0940fa17c28
+      internalID: 1237594603
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_2
+      name: c6x8u1jq (1)_2
       rect:
         serializedVersion: 2
-        x: 1258
-        y: 295
-        width: 651
-        height: 507
+        x: 943
+        y: 168
+        width: 384
+        height: 267
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dec216db544318442aae36f302d49884
-      internalID: 1640671174
+      spriteID: 70d17a921d470e04999e7bbc5faa19f4
+      internalID: -418633174
       vertices: []
       indices: 
       edges: []
@@ -178,9 +202,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_0: -1212050950
-      set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_1: 1183489337
-      set-funny-fantasy-glossy-diamond-game-ui-awards-rank-medal-gui-asset-elements_278261-340-removebg_2: 1640671174
+      c6x8u1jq (1)_0: -1394365508
+      c6x8u1jq (1)_1: 1237594603
+      c6x8u1jq (1)_2: -418633174
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

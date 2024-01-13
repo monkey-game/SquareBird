@@ -16,9 +16,9 @@ public class Coin : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        ScoreManager.Instance.Coin++;
+        GameController.Instance.player.Coin++;
         Animator.SetTrigger("IsClose");
         Destroy(gameObject, 2);
     }

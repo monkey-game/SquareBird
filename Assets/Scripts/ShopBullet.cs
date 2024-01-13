@@ -40,6 +40,10 @@ public class ShopBullet : Shop
         if (items[index].isUnlocker)
         {
             SpriteChange = spriteBullet[index];
+            ReloadList(items[index]);
+            if (GameController.Instance.player != null)
+          
+                GameController.Instance.player.SpriteBullet = SpriteChange.name;
             UpdateUI();
         }
         else
@@ -66,6 +70,16 @@ public class ShopBullet : Shop
         }
         string combinedJson = string.Join("\n", JsonItem);
         File.WriteAllText(Application.persistentDataPath + "/dataShopBullet.json", combinedJson);
+    }
+    private void ReloadList(ItemTemplate itemGround)
+    {
+        foreach (var item in items)
+        {
+            if (item != itemGround && item.isUnlocker)
+            {
+                item.isUsed = false;
+            }
+        }
     }
     private void LoadObjectFromItem()
     {

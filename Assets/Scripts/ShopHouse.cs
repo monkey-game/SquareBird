@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,6 +30,8 @@ public class ShopHouse : Shop
     public override void UpdateUI()
     {
         prefabHouse.GetComponent<SpriteRenderer>().sprite = SpriteChange;
+        GameObject home = GameObject.FindGameObjectWithTag("Home");
+        home.GetComponent<SpriteRenderer>().sprite = SpriteChange;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -38,6 +41,10 @@ public class ShopHouse : Shop
         if (items[index].isUnlocker)
         {
             SpriteChange = ListImg[index];
+            if (GameController.Instance.player != null)
+           
+                GameController.Instance.player.SpriteHouse = SpriteChange.name;
+            ReloadList(items[index]);
             UpdateUI();
         }
         else
@@ -57,6 +64,16 @@ public class ShopHouse : Shop
         }
         string combinedJson = string.Join("\n", JsonItem);
         File.WriteAllText(Application.persistentDataPath + "/dataShopHouse.json", combinedJson);
+    }
+    private void ReloadList(ItemTemplate itemGround)
+    {
+        foreach (var item in items)
+        {
+            if (item != itemGround && item.isUnlocker)
+            {
+                item.isUsed = false;
+            }
+        }
     }
     private void LoadObjectFromItem()
     {

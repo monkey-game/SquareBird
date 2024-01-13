@@ -28,9 +28,12 @@ public class PlayerLogin : MonoBehaviour
             string id = PlayGamesPlatform.Instance.GetUserId();
             string ImgUrl = PlayGamesPlatform.Instance.GetUserImageUrl();
             PlayerBase player = new PlayerBase(id,name);
+            Util.GetPlayerFromJson(player);
         }
         else
         {
+            PlayerBase player = new PlayerBase("1", "khiem");
+            Util.GetPlayerFromJson(player);
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call
             // PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication).

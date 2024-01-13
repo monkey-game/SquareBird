@@ -26,18 +26,13 @@ public class ScoreManager : MonoBehaviour
     private void Start()
     {    
         LoadBestScore();
-        LoadCoin();
+    }
+    private void OnDestroy()
+    {
+        SaveBestScore();
     }
 
-    // Update is called once per frame
-    public void UpdateCoin()
-    {
-        PlayerPrefs.SetInt("Coin",Coin);
-    }
-    public void LoadCoin()
-    {
-        PlayerPrefs.GetInt("Coin", Coin);
-    }
+    // Update is called once per frame 
     public void UpdateScore()
     {
 

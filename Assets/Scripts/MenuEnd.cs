@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuEnd : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class MenuEnd : MonoBehaviour
     public void OnClickRestart()
     {
         player.position = HomePos.position;
-        player.Rotate(0, 0, 0);
+        PlayerManager.IsReset = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
