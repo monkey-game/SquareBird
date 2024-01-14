@@ -22,32 +22,32 @@ public class LoadGame : MonoBehaviour
 
     private void LoadGameFormPlayer()
     {
-        if (GameController.Instance.LoadGame&& GameController.Instance.player != null)
+        if (GameController.Instance.LoadGame && GameController.Instance.player != null)
         {
-            if (GameController.Instance.player.spriteBGround != null && GameController.Instance.player.SpriteGround != null)
+            if (!string.IsNullOrEmpty(GameController.Instance.player.spriteBGround) && !string.IsNullOrEmpty(GameController.Instance.player.SpriteGround))
             {
                 BGround = Resources.Load<Sprite>("image/" + GameController.Instance.player.spriteBGround);
                 Ground = Resources.Load<Sprite>("image/" + GameController.Instance.player.SpriteGround);
                 UpdateSpriteTrap();
-                UpdateSpriteGround();              
+                UpdateSpriteGround();
             }
-            if (GameController.Instance.player.SpritePlayer != null)
+            if (!string.IsNullOrEmpty(GameController.Instance.player.SpritePlayer))
             {
 
             }
-            if (GameController.Instance.player.SpriteBullet != null)
+            if (!string.IsNullOrEmpty(GameController.Instance.player.SpriteBullet))
             {
                 Bulllet = Resources.Load<Sprite>("image/" + GameController.Instance.player.SpriteBullet);
                 GameObject Bullet = GameObject.FindGameObjectWithTag("Bullet");
                 if (Bullet != null)
-                Bullet.GetComponent<SpriteRenderer>().sprite = Bulllet;
+                    Bullet.GetComponent<SpriteRenderer>().sprite = Bulllet;
             }
-            if (GameController.Instance.player.SpriteHouse != null)
+            if (!string.IsNullOrEmpty(GameController.Instance.player.SpriteHouse))
             {
                 House = Resources.Load<Sprite>("image/" + GameController.Instance.player.SpriteHouse);
                 GameObject home = GameObject.FindGameObjectWithTag("Home");
-                if (home != null) 
-                home.GetComponent<SpriteRenderer>().sprite = House;
+                if (home != null)
+                    home.GetComponent<SpriteRenderer>().sprite = House;
             }
             GameController.Instance.LoadMap(GameController.Instance.player.Level);
             GameController.Instance.LoadGame = false;
