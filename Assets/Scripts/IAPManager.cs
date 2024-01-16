@@ -14,18 +14,17 @@ public class IAPManager : MonoBehaviour
 
     public void OnPurchaseCompile(Product product)
     {
-        Debug.Log(product.definition.id);
         if(product.definition.id == ID_5000)
         {
-            print("receive 5000");
+            AddCoin(5000);
         }
         if (product.definition.id == ID_15000)
         {
-            print("receive 15000");
+            AddCoin(15000);
         }
         if (product.definition.id == ID_50000)
         {
-            print("receive 50000");
+            AddCoin(50000);
         }
         if (product.definition.id == ID_RemoveADS)
         {
@@ -36,6 +35,15 @@ public class IAPManager : MonoBehaviour
 
         }
     }
+
+    private static void AddCoin(int coin)
+    {
+        if (GameController.Instance != null && GameController.Instance.player != null)
+        {
+            GameController.Instance.player.Coin += coin;
+        }
+    }
+
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
         Debug.Log(product.definition.id +" failed as resuit of :"+failureDescription.ToString());

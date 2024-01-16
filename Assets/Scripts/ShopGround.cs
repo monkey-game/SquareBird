@@ -20,6 +20,7 @@ public class ShopGround : Shop
     [SerializeField] private Sprite imageUsed;
     [SerializeField] private Text textCoin;
     public ItemTemplate[] items;
+    private int indexWait;
 
     private void Awake()
     {
@@ -35,6 +36,9 @@ public class ShopGround : Shop
     private void Update()
     {
         textCoin.text = GameController.Instance.player.Coin.ToString();
+
+        RewardADS(indexWait);
+
     }
     private void OnDisable()
     {
@@ -96,14 +100,20 @@ public class ShopGround : Shop
             }
             UpdateUI();
         }
-        if(GameController.Instance.player.Coin >= items[index].price)
+        if (items[index].price == 0&& !items[index].isUnlocker)
+        {
+            ADSManager.Instance.rewardedAds.LoadAd();
+            ADSManager.Instance.rewardedAds.ShowAd();
+            indexWait = index;
+        }
+        if (GameController.Instance.player.Coin >= items[index].price&& items[index].price > 0)
         {
             GameController.Instance.player.Coin-= items[index].price;
             items[index].isUnlocker = true;
             SkinGround[index].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
+            if(SkinGround[index].GetComponentInChildren<Text>() != null)
             SkinGround[index].GetComponentInChildren<Text>().enabled = false;
         }
-        Debug.Log(index);
     }
     private void SaveToJson()
     {
@@ -119,7 +129,7 @@ public class ShopGround : Shop
     {
         foreach (var item in items)
         {
-            if(item != itemGround && item.isUnlocker)
+            if(item.Id != itemGround.Id && item.isUnlocker)
             {
                 item.isUsed = false;
             }
@@ -132,6 +142,7 @@ public class ShopGround : Shop
             if (items[i].isUnlocker) 
             {
                 SkinGround[i].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
+                if(SkinGround[i].GetComponentInChildren<Text>() != null)
                 SkinGround[i].GetComponentInChildren<Text>().enabled = false;
             }
         }
@@ -152,6 +163,18 @@ public class ShopGround : Shop
             }
             else
                 return;
+        }
+    }
+
+    public override void RewardADS(int index)
+    {
+        if (GameController.Instance.RewardADS)
+        {
+            items[index].isUnlocker = true;
+            SkinGround[index].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
+            if (SkinGround[index].GetComponentInChildren<Text>() != null)
+                SkinGround[index].GetComponentInChildren<Text>().enabled = false;
+            GameController.Instance.RewardADS = false;
         }
     }
 }

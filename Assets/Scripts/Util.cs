@@ -12,6 +12,12 @@ public class Util:MonoBehaviour
         PlayerPrefs.Save();
     }
     public static string LoadDataString(string name) {  return PlayerPrefs.GetString(name); }
+    public static void SaveDataInt(string name, int value)
+    {
+        PlayerPrefs.SetInt(name, value);
+        PlayerPrefs.Save();
+    }
+    public static int LoadDataInt(string name) { return PlayerPrefs.GetInt(name); }
     public static void SaveToPlayerJson(PlayerBase pl)
     {
         string combinedJson = JsonUtility.ToJson(pl);

@@ -69,7 +69,7 @@ public class ShopHouse : Shop
     {
         foreach (var item in items)
         {
-            if (item != itemGround && item.isUnlocker)
+            if (item.Id != itemGround.Id && item.isUnlocker)
             {
                 item.isUsed = false;
             }
@@ -102,6 +102,11 @@ public class ShopHouse : Shop
             else
                 return;
         }
+    }
+
+    public override void RewardADS(int index)
+    {
+        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update

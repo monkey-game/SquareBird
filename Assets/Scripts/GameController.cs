@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
     private float TimeReset;
     public PlayerBase player;
     public bool LoadGame = false;
+    public bool RewardADS = false;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);

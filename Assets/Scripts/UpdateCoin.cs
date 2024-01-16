@@ -17,7 +17,7 @@ public class UpdateCoin : MonoBehaviour
     {
         foreach (var coin in coinList)
         {
-            if(coin != null)
+            if(coin != null && coin.enabled)
             {
                 coin.text = GameController.Instance.player.Coin.ToString();
             }

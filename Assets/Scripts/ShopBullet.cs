@@ -15,6 +15,7 @@ public class ShopBullet : Shop
     [SerializeField] private Sprite ButtonUse;
     public ItemTemplate[] items;
     private Sprite SpriteChange;
+    private int indexWait;
 
     private void Start()
     {
@@ -30,13 +31,16 @@ public class ShopBullet : Shop
                     childButton.onClick.AddListener(() => BuyItem(index));
                 }
             }
-        }
-        LoadObjectFromItem();
+        }     
         LoadItemFromJson();
+        LoadObjectFromItem();
+    }
+    private void Update()
+    {
+        RewardADS(indexWait);
     }
     public override void BuyItem(int index)
     {
-        Debug.Log(index);
         if (items[index].isUnlocker)
         {
             SpriteChange = spriteBullet[index];
@@ -47,13 +51,21 @@ public class ShopBullet : Shop
             UpdateUI();
         }
         else
-        {      
+        {
+            ADSManager.Instance.rewardedAds.LoadAd();
+            ADSManager.Instance.rewardedAds.ShowAd();
+            indexWait = index;
         }
     }
 
     public override void UpdateUI()
     {
         prefabBullet.GetComponent<SpriteRenderer>().sprite = SpriteChange;
+        GameObject obj = GameObject.FindGameObjectWithTag("Bullet");
+        if (obj != null)
+        {
+            obj.GetComponent<SpriteRenderer>().sprite = SpriteChange;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
     }
@@ -66,6 +78,7 @@ public class ShopBullet : Shop
         string[] JsonItem = new string[items.Length];
         for (int i = 0; i < items.Length; i++)
         {
+            items[i].Id = i;
             JsonItem[i] = JsonUtility.ToJson(items[i]);
         }
         string combinedJson = string.Join("\n", JsonItem);
@@ -75,7 +88,7 @@ public class ShopBullet : Shop
     {
         foreach (var item in items)
         {
-            if (item != itemGround && item.isUnlocker)
+            if (item.Id != itemGround.Id && item.isUnlocker)
             {
                 item.isUsed = false;
             }
@@ -114,6 +127,23 @@ public class ShopBullet : Shop
             }
             else
                 return;
+        }
+    }
+
+    public override void RewardADS(int index)
+    {
+        if (GameController.Instance.RewardADS)
+        {
+            items[index].isUnlocker = true;
+            Button[] childButtons = SkinBullets[index].GetComponentsInChildren<Button>();
+            foreach (Button childButton in childButtons)
+            {
+                if (childButton.transform != SkinBullets[index].transform)
+                {
+                    childButton.GetComponent<Image>().sprite = ButtonUse;
+                }
+            }
+            GameController.Instance.RewardADS= false;
         }
     }
 }

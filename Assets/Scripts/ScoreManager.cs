@@ -42,6 +42,7 @@ public class ScoreManager : MonoBehaviour
         if (BestScore < scoreNow)
         {
             PlayerPrefs.SetInt("BestScore_"+name, BestScore);
+            PlayerPrefs.Save();
             BestScore = scoreNow;
             Social.ReportScore(BestScore, "CgkIr6b-jqcDEAIQAw", (bool isSucces) =>
             {
