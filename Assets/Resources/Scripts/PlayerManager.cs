@@ -40,10 +40,12 @@ public class PlayerManager : MonoBehaviour
             Vector3 obstaclePosition = collision.gameObject.transform.position;          
             if (blockPosition.y < obstaclePosition.y)
             {
+                Debug.Log(blockPosition.y);
+                Debug.Log(obstaclePosition.y);
                 IdleDie();
             }
             else if((blockPosition.y - obstaclePosition.y) < 0.75f)
-            {
+            {             
                 IdleDie();
             }           
         }       
@@ -98,7 +100,7 @@ public class PlayerManager : MonoBehaviour
         if (!isStop)
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0)&&!isWinLine)
             {
                 Jump();
                 CreateBlockUnderPlayer();

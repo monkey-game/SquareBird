@@ -12,6 +12,7 @@ public class LoadGame : MonoBehaviour
     private Sprite Bulllet;
     void Start()
     {
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame

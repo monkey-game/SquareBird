@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
         {
             TransOld = listMap[0].gameObject.transform;
             Destroy(listMap[0].gameObject);
-            Instantiate(listMap[level].gameObject, TransOld.position, Quaternion.identity);
+            Instantiate(listMap[level].gameObject, TransOld.position+new Vector3(3,0,0), Quaternion.identity);
             Player.transform.position = HomePos.position;
             Level = level;
         }
