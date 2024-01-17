@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d7b6eb127ab144a9277b15e2ade7fb, type: 3}
+  m_Name: Skin_14
+  m_EditorClassIdentifier: 
+  skinName: 
+  animationSprites:
+  - {fileID: 21300000, guid: d50a806976d7d29489a150d1e1234e87, type: 3}
+  - {fileID: 21300000, guid: c22a9917f317e804685b388319dad9c7, type: 3}
+  - {fileID: 21300000, guid: ecef705b9ad35d94b80cfd26541c409a, type: 3}
+  deathSprite: {fileID: 21300000, guid: 8f905588a0570a14f8f72d4518f61254, type: 3}
+  hasAnimation: 1

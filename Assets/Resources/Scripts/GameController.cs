@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform HomePos;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject[] listMap;
-    private Transform TransOld;
     public string NameBird;
     public short CountPerfect;
     public short Score;
@@ -33,6 +32,8 @@ public class GameController : MonoBehaviour
     public PlayerBase player;
     public bool LoadGame = false;
     public bool RewardADS = false;
+    public Vector3[] postion;
+    private Transform temp;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour
             Destroy(Instance);
         }
         LoadGame = true;
+        temp = transform;
     }
     private void Update()
     {
@@ -120,18 +122,18 @@ public class GameController : MonoBehaviour
     }
     public void OnClickNextButton()
     {
-        TransOld = listMap[Level - 1].gameObject.transform;
         Destroy(listMap[Level - 1].gameObject);
-        Instantiate(listMap[Level].gameObject, TransOld.position, Quaternion.identity);
+        temp.position = postion[Level];
+        Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
         Player.transform.position = HomePos.position;
     }
     public void LoadMap(byte level)
     {
         if (level > 0)
         {
-            TransOld = listMap[0].gameObject.transform;
             Destroy(listMap[0].gameObject);
-            Instantiate(listMap[level].gameObject, TransOld.position+new Vector3(3,0,0), Quaternion.identity);
+            temp.position = postion[level];
+            Instantiate(listMap[level].gameObject, temp.position, Quaternion.identity);
             Player.transform.position = HomePos.position;
             Level = level;
         }

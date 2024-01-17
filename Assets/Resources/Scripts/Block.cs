@@ -41,16 +41,10 @@ public class Block : MonoBehaviour
             Vector3 obstaclePosition = collision.gameObject.transform.position;
                 if (blockPosition.y < obstaclePosition.y)
                 {
-                Debug.Log("Run");
-                Debug.Log(blockPosition.y);
-                Debug.Log(obstaclePosition.y);
                     isAttached = false;
                 }
             if ((blockPosition.y - obstaclePosition.y) < 0.65f) 
                 {
-                Debug.Log("Run123");
-                Debug.Log(blockPosition.y);
-                Debug.Log(obstaclePosition.y);
                 isAttached = false;
                 
             }           
@@ -83,9 +77,6 @@ public class Block : MonoBehaviour
             PosChild.x = PosParent.x - 0.1f;
             transform.position = PosChild;
         }
-
-        // Nếu có va chạm, xác định là đang chạm vào tường
-            // Xử lý khi không có va chạm
     }
     void DestroyByWin()
     {

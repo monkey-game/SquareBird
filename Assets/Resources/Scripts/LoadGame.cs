@@ -34,7 +34,6 @@ public class LoadGame : MonoBehaviour
             }
             if (!string.IsNullOrEmpty(GameController.Instance.player.SpritePlayer))
             {
-
             }
             if (!string.IsNullOrEmpty(GameController.Instance.player.SpriteBullet))
             {
@@ -52,6 +51,7 @@ public class LoadGame : MonoBehaviour
             }
             GameController.Instance.LoadMap(GameController.Instance.player.Level);
             GameController.Instance.LoadGame = false;
+            Debug.Log("Load Game");
         }
     }
 

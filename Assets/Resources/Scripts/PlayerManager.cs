@@ -40,8 +40,6 @@ public class PlayerManager : MonoBehaviour
             Vector3 obstaclePosition = collision.gameObject.transform.position;          
             if (blockPosition.y < obstaclePosition.y)
             {
-                Debug.Log(blockPosition.y);
-                Debug.Log(obstaclePosition.y);
                 IdleDie();
             }
             else if((blockPosition.y - obstaclePosition.y) < 0.75f)
@@ -54,6 +52,7 @@ public class PlayerManager : MonoBehaviour
     {     
         if (collision.gameObject.CompareTag("WinLine"))
         {
+            isWinLine = true;
             StartCoroutine(WaitForDestroyBlock());
             StopBullet();
         }
@@ -84,7 +83,7 @@ public class PlayerManager : MonoBehaviour
             {
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
-            }         
+            }        
         }
         if(IsReset)
         {
@@ -125,6 +124,7 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         eventDestroy?.Invoke();
+        isWinLine = false;
     }
 
     private void CreateBullet()
