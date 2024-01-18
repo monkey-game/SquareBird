@@ -20,7 +20,6 @@ public class ADSManager : MonoBehaviour
             Destroy(Instance);
         }
         bannerAd.LoadBanner();
-        bannerAd.ShowBannerAd();
         rewardedAds.LoadAd();
         interstitialAd.LoadAd();
     }
