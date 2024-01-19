@@ -8,4 +8,7 @@ public abstract class Shop : MonoBehaviour
     public abstract void UpdateUI();
     public abstract void BuyItem(int index);
     public abstract void RewardADS(int index);
+    public abstract void SaveToJson();
+    public abstract void LoadItemFromJson();
+    public abstract void LoadObjectFromItem();
 }

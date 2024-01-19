@@ -9,7 +9,6 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance { get; private set; }
     public int scoreNow;
     public int BestScore;
-    public string NamePlayer;
     public int Coin;
     // Start is called before the first frame update
     void Awake()
@@ -41,7 +40,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (BestScore < scoreNow)
         {
-            PlayerPrefs.SetInt("BestScore_"+name, BestScore);
+            PlayerPrefs.SetInt("BestScore", BestScore);
             PlayerPrefs.Save();
             BestScore = scoreNow;
             Social.ReportScore(BestScore, "CgkIr6b-jqcDEAIQAw", (bool isSucces) =>
@@ -52,6 +51,6 @@ public class ScoreManager : MonoBehaviour
     }
     public void LoadBestScore()
     {
-        PlayerPrefs.GetInt("BestScore_"+name, BestScore);
+        PlayerPrefs.GetInt("BestScore", BestScore);
     }
 }

@@ -32,7 +32,7 @@ public class PlayerLogin : MonoBehaviour
         }
         else
         {
-            PlayerBase player = new PlayerBase("1", "khiem");
+            PlayerBase player = new PlayerBase("1", "player");
             Util.GetPlayerFromJson(player);
             // Disable your integration with Play Games Services or show a login button
             // to ask users to sign-in. Clicking it should call

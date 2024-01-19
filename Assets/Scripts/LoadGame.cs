@@ -32,9 +32,6 @@ public class LoadGame : MonoBehaviour
                 UpdateSpriteTrap();
                 UpdateSpriteGround();
             }
-            if (!string.IsNullOrEmpty(GameController.Instance.player.SpritePlayer))
-            {
-            }
             if (!string.IsNullOrEmpty(GameController.Instance.player.SpriteBullet))
             {
                 Bulllet = Resources.Load<Sprite>("image/" + GameController.Instance.player.SpriteBullet);

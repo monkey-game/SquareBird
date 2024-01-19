@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: 
   animationSprites:
-  - {fileID: 21300000, guid: da7d77d14f9f20c4d87d2f5bdd141d49, type: 3}
-  - {fileID: 21300000, guid: 15fb65cbbabb80c4e8e51ae46e1bea38, type: 3}
-  - {fileID: 21300000, guid: 2ca3b66c1fefd934cb8c00ca6e60abfe, type: 3}
-  deathSprite: {fileID: 21300000, guid: 4a73a2fb4e3635643a701c9b2d2a61cd, type: 3}
+  - {fileID: 21300000, guid: 89d85693ad631ba4fa254b11f0d7240a, type: 3}
+  - {fileID: 21300000, guid: 6b149bea9c0f68c419f84b6eb22323e7, type: 3}
+  - {fileID: 21300000, guid: a2c44e72761334d4596dd35038d1c52e, type: 3}
+  deathSprite: {fileID: 21300000, guid: 73f5b785dfdd88e4eb080d104218c728, type: 3}
   hasAnimation: 1

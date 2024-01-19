@@ -73,7 +73,7 @@ public class ShopBullet : Shop
     {
         SaveToJson();
     }
-    private void SaveToJson()
+    public override void SaveToJson()
     {
         string[] JsonItem = new string[items.Length];
         for (int i = 0; i < items.Length; i++)
@@ -94,7 +94,7 @@ public class ShopBullet : Shop
             }
         }
     }
-    private void LoadObjectFromItem()
+    public override void LoadObjectFromItem()
     {
        for(int index = 0; index < items.Length; index++)
         {
@@ -111,7 +111,7 @@ public class ShopBullet : Shop
             }
         }
     }
-    private void LoadItemFromJson()
+    public override void LoadItemFromJson()
     {
         string filePath = Application.persistentDataPath + "/dataShopBullet.json";
 

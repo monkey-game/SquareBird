@@ -13,9 +13,8 @@ public class PlayerManager : MonoBehaviour
     public UnityEvent eventDestroy;
     private Rigidbody2D body;
     private GameObject lastBlock;
-    private Animator animator;
     private bool isWinLine = false;
-    private bool isStop = false;
+    public bool isStop = false;
     private int speed = 5;
     private float nextBulletTime;
     private bool StartShooting = false;
@@ -24,7 +23,6 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -45,7 +43,8 @@ public class PlayerManager : MonoBehaviour
             else if((blockPosition.y - obstaclePosition.y) < 0.75f)
             {             
                 IdleDie();
-            }           
+            }else
+            ScoreManager.Instance.scoreNow += 10;
         }       
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -87,7 +86,6 @@ public class PlayerManager : MonoBehaviour
         }
         if(IsReset)
         {
-            animator.SetTrigger("IsReset");
             IsReset= false;
             isStop = false;
             isWinLine = false;
@@ -138,11 +136,18 @@ public class PlayerManager : MonoBehaviour
     private void IdleDie()
     {
         isStop = true;
-        animator.SetTrigger("IsDie");
         eventDestroy?.Invoke();
-        int VaCham = Random.Range(2, 3);
-        body.AddForce(Vector3.left * VaCham, (ForceMode2D)ForceMode.Impulse);
+        AnimationDie();
         GameController.Instance.GameOver();
+    }
+
+    private void AnimationDie()
+    {
+        for (int i = 0; i < Random.Range(1, 3); i++)
+        {
+            transform.Rotate(new Vector3(0, 0f, Random.Range(90f, 180f)));
+            body.AddForce(Vector3.left * Random.Range(2f, 3f), (ForceMode2D)ForceMode.Impulse);
+        }
     }
 
     void Jump()

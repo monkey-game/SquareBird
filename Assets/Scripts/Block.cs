@@ -43,10 +43,14 @@ public class Block : MonoBehaviour
                 {
                     isAttached = false;
                 }
-            if ((blockPosition.y - obstaclePosition.y) < 0.65f) 
+            else if ((blockPosition.y - obstaclePosition.y) < 0.65f) 
                 {
                 isAttached = false;
-                
+
+            }
+            else
+            {
+                ScoreManager.Instance.scoreNow += 10;
             }           
         }
     }
