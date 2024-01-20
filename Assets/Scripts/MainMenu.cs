@@ -43,5 +43,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         CanvasStartGame.SetActive(false);
         CanvasStartGame.transform.parent = TransformPlayer;
         CanvasPlayer.SetActive(true);
+        ScoreManager.Instance.scoreNow = 0;
+        ScoreManager.Instance.LoadBestScore();
     }
 }

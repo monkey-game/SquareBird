@@ -18,11 +18,24 @@ public class MenuEnd : MonoBehaviour
     {
         textScore.text = ScoreManager.Instance.scoreNow.ToString();
         textBest.text = ScoreManager.Instance.BestScore.ToString();
+        RevivePlayer();
     }
     public void OnClickRestart()
     {
         player.position = HomePos.position;
         PlayerManager.IsReset = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void OnClickRevive(){
+        ADSManager.Instance.rewardedAds.LoadAd();
+        ADSManager.Instance.rewardedAds.ShowAd();
+    }
+    private void RevivePlayer(){
+        if(GameController.Instance.RewardADS){
+            GameController.Instance.RewardADS = false;
+            PlayerManager.IsReset = true;
+            PlayerManager.IsRevive = true;
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour
     public bool RewardADS = false;
     public Vector3[] postion;
     private Transform temp;
+    private GameObject MapTemp;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -122,9 +123,9 @@ public class GameController : MonoBehaviour
     }
     public void OnClickNextButton()
     {
-        Destroy(listMap[Level - 1].gameObject);
+        Destroy(MapTemp);
         temp.position = postion[Level];
-        Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
+        MapTemp = Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
         Player.transform.position = HomePos.position;
     }
     public void LoadMap(byte level)
@@ -133,7 +134,7 @@ public class GameController : MonoBehaviour
         {
             Destroy(listMap[0].gameObject);
             temp.position = postion[level];
-            Instantiate(listMap[level].gameObject, temp.position, Quaternion.identity);
+            MapTemp = Instantiate(listMap[level].gameObject, temp.position, Quaternion.identity);
             Player.transform.position = HomePos.position;
             Level = level;
         }

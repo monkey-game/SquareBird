@@ -19,6 +19,8 @@ public class PlayerManager : MonoBehaviour
     private float nextBulletTime;
     private bool StartShooting = false;
     public static bool IsReset = false;
+    public static bool IsRevive = false;
+    private Transform TrapTrans;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -36,14 +38,13 @@ public class PlayerManager : MonoBehaviour
         {
             Vector3 blockPosition = transform.position;
             Vector3 obstaclePosition = collision.gameObject.transform.position;          
-            if (blockPosition.y < obstaclePosition.y)
+            if ((blockPosition.y < obstaclePosition.y)||((blockPosition.y - obstaclePosition.y) < 0.75f))
             {
                 IdleDie();
-            }
-            else if((blockPosition.y - obstaclePosition.y) < 0.75f)
-            {             
-                IdleDie();
+                TrapTrans = collision.gameObject.transform;
+
             }else
+            if(!isStop)
             ScoreManager.Instance.scoreNow += 10;
         }       
     }
@@ -89,6 +90,12 @@ public class PlayerManager : MonoBehaviour
             IsReset= false;
             isStop = false;
             isWinLine = false;
+        }
+        if(IsRevive){
+            IsRevive = false;
+            transform.position = TrapTrans.position+ new Vector3(2,2,0);
+            transform.Rotate(0,0,0);
+            Debug.Log("run revive");
         }
     }
 

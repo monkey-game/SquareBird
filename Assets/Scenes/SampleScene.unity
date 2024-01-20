@@ -9567,7 +9567,8 @@ Transform:
   m_LocalPosition: {x: -12.48, y: 3.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1597563614}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
@@ -11287,7 +11288,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0000047684, y: -333}
-  m_SizeDelta: {x: 611.4, y: 203.77}
+  m_SizeDelta: {x: 780, y: 266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589827295
 MonoBehaviour:
@@ -11332,7 +11333,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 589827296}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 92826726}
+        m_TargetAssemblyTypeName: MenuEnd, Assembly-CSharp
+        m_MethodName: OnClickRevive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &589827296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31372,7 +31385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1597563613
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31414,7 +31427,7 @@ SpriteRenderer:
   m_SortingLayerID: 1394116125
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6fea41230749eeb47b15b199ec12bcea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22e77874be28294409f897ac8c4bc9a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -31433,12 +31446,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597563612}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.5737, y: 4.5996, z: 0}
-  m_LocalScale: {x: 12.159779, y: 6.775119, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1603127129
 GameObject:
@@ -38765,8 +38778,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 1394116125
-  m_SortingOrder: 8
+  m_SortingLayerID: -1717495341
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1001 &1895340111
 PrefabInstance:
@@ -43999,6 +44012,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 8784738471512673583, guid: f845d783e7d1d53488aebe83db8cd178, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784738471512673583, guid: f845d783e7d1d53488aebe83db8cd178, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1717495341
+      objectReference: {fileID: 0}
     - target: {fileID: 8784738471764522128, guid: f845d783e7d1d53488aebe83db8cd178, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -44079,7 +44100,6 @@ SceneRoots:
   - {fileID: 1930487638}
   - {fileID: 932400907}
   - {fileID: 1913702130}
-  - {fileID: 1597563614}
   - {fileID: 304407022}
   - {fileID: 1435742779}
   - {fileID: 480983179}

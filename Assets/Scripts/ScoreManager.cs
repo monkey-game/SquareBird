@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour
     }
     private void Start()
     {    
-        LoadBestScore();
+        BestScore = LoadBestScore();
     }
     private void OnDestroy()
     {
@@ -40,17 +40,18 @@ public class ScoreManager : MonoBehaviour
     {
         if (BestScore < scoreNow)
         {
-            PlayerPrefs.SetInt("BestScore", BestScore);
-            PlayerPrefs.Save();
             BestScore = scoreNow;
+            PlayerPrefs.SetInt("BestScore",BestScore);
+            PlayerPrefs.Save();
             Social.ReportScore(BestScore, "CgkIr6b-jqcDEAIQAw", (bool isSucces) =>
             {
                 Debug.Log("Success");
             });
+            Debug.Log(BestScore);     
         }
     }
-    public void LoadBestScore()
+    public int LoadBestScore()
     {
-        PlayerPrefs.GetInt("BestScore", BestScore);
+        return PlayerPrefs.GetInt("BestScore");
     }
 }
