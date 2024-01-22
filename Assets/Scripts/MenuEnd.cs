@@ -10,6 +10,7 @@ public class MenuEnd : MonoBehaviour
     [SerializeField]private Transform HomePos;
     [SerializeField] private Text textScore;
     [SerializeField] private Text textBest;
+    [SerializeField] private GameObject UIRevive;
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -23,6 +24,8 @@ public class MenuEnd : MonoBehaviour
     public void OnClickRestart()
     {
         player.position = HomePos.position;
+        GameController.Instance.ResetCamera= true;
+        StartCoroutine(ResetCamara());
         PlayerManager.IsReset = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -32,10 +35,18 @@ public class MenuEnd : MonoBehaviour
     }
     private void RevivePlayer(){
         if(GameController.Instance.RewardADS){
+            GameController.Instance.ResetCamera = true;
+            StartCoroutine(ResetCamara());
             GameController.Instance.RewardADS = false;
             PlayerManager.IsReset = true;
             PlayerManager.IsRevive = true;
+            UIRevive.SetActive(true); 
             gameObject.SetActive(false);
         }
+    }
+    IEnumerator ResetCamara()
+    {
+        yield return new WaitForSeconds(2);
+        GameController.Instance.ResetCamera = false;
     }
 }

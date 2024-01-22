@@ -1,2 +1,11 @@
 lastUpgrade=01101
 proj.pluginVersion=0.11.01
+proj.AppId=113579627311
+and.BundleId=com.squarebird.khiem
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e113579627311%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.squarebird.khiem%3c%2fstring%3e%0d%0a++%3c%21--achievement+1000+Game--%3e%0d%0a++%3cstring+name%3d%22achievement_1000_game%22+translatable%3d%22false%22%3eCgkIr6b-jqcDEAIQBQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+Received+1000+Coin--%3e%0d%0a++%3cstring+name%3d%22achievement_received_1000_coin%22+translatable%3d%22false%22%3eCgkIr6b-jqcDEAIQBg%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+Leader+Board--%3e%0d%0a++%3cstring+name%3d%22leaderboard_leader_board%22+translatable%3d%22false%22%3eCgkIr6b-jqcDEAIQAw%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=113579627311-5soauia1ff05asmpn4b7j2vaqfu3cqmj.apps.googleusercontent.com
+android.SetupDone=true
+App.NearbdServiceId=com.squarebird.khiem
+android.NearbySetupDone=true

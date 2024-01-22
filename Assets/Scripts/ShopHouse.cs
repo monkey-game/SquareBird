@@ -13,19 +13,23 @@ public class ShopHouse : Shop
     [SerializeField] private Sprite imageUsed;
     private Sprite SpriteChange;
     public ItemTemplate[] items;
-
+    private int indexWait;
 
     private void Awake()
     {
-        for(int i = 0; i < ListHouse.Length; i++)
+        for (int i = 0; i < ListHouse.Length; i++)
         {
             int index = i;
-            ListHouse[index].GetComponentInChildren<Button>().onClick.AddListener(()=> BuyItem(index));
+            ListHouse[index].GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(index));
         }
         LoadItemFromJson();
         LoadObjectFromItem();
 
-    }  
+    }
+    private void Update()
+    {
+        RewardADS(indexWait);
+    }
 
     public override void UpdateUI()
     {
@@ -42,13 +46,16 @@ public class ShopHouse : Shop
         {
             SpriteChange = ListImg[index];
             if (GameController.Instance.player != null)
-           
+
                 GameController.Instance.player.SpriteHouse = SpriteChange.name;
             ReloadList(items[index]);
             UpdateUI();
         }
         else
         {
+            ADSManager.Instance.rewardedAds.LoadAd();
+            ADSManager.Instance.rewardedAds.ShowAd();
+            indexWait = index;
         }
     }
     private void OnDisable()
@@ -106,9 +113,14 @@ public class ShopHouse : Shop
 
     public override void RewardADS(int index)
     {
-        throw new System.NotImplementedException();
+        if (GameController.Instance.RewardADS)
+        {
+            items[index].isUnlocker = true;
+            ListHouse[index].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
+            GameController.Instance.RewardADS = false;
+        }
+
+        // Start is called before the first frame update
+    } 
+
     }
-
-    // Start is called before the first frame update
-
-}

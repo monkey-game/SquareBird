@@ -10,11 +10,11 @@ public class CameraController : MonoBehaviour
     private Vector3 newPos;
     private void LateUpdate()
     {
-      //  if (MainMenu.isStartGame && target != null)
-     //   {          
+        if (MainMenu.isStartGame||GameController.Instance.ResetCamera)
+        {
             newPos = new Vector3(target.transform.position.x+2.55f,target.transform.position.y+3.73f,-10);
             transform.position = newPos;
-     //   }
+        }
     }
     void Update()
     {

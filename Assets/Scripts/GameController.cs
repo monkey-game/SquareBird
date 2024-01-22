@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
     public Vector3[] postion;
     private Transform temp;
     private GameObject MapTemp;
+    public bool ResetCamera = false;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -123,10 +124,15 @@ public class GameController : MonoBehaviour
     }
     public void OnClickNextButton()
     {
+        if(Level == 0)
+        {
+            Destroy(listMap[0].gameObject);
+        }else
         Destroy(MapTemp);
         temp.position = postion[Level];
         MapTemp = Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
         Player.transform.position = HomePos.position;
+        GameController.Instance.ResetCamera = true;
     }
     public void LoadMap(byte level)
     {

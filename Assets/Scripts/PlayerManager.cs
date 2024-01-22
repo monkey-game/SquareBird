@@ -94,7 +94,7 @@ public class PlayerManager : MonoBehaviour
         if(IsRevive){
             IsRevive = false;
             transform.position = TrapTrans.position+ new Vector3(2,2,0);
-            transform.Rotate(0,0,0);
+            transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
             Debug.Log("run revive");
         }
     }

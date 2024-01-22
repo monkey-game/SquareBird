@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimatorPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float frameRate = 0.1f; 
+    public float TimeNextFrame = 0.12f; 
 
     private SpriteRenderer spriteRenderer;
     private Sprite[] frames; 
@@ -25,7 +25,7 @@ public class AnimatorPlayer : MonoBehaviour
         if (SkinManager.instance.currentSkin.hasAnimation&& !playerManager.isStop)
         {
             timer += Time.deltaTime;
-            if (timer > frameRate)
+            if (timer > TimeNextFrame)
             {
                 timer = 0f;
 

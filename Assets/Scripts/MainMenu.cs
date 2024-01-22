@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     {
         CanvasStartGame = GameObject.Find("CanvasStartGame");
         ObSetting = GameObject.Find("Setting");
+        TransformPlayer = GameObject.Find("Player").transform;
     }
     public void OnClickSetting()
     {
@@ -40,7 +41,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     {
         isStartGame = true;       
         Debug.Log("StartGame");
-        CanvasStartGame.SetActive(false);
+        gameObject.SetActive(false);
         CanvasStartGame.transform.parent = TransformPlayer;
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
