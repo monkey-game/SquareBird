@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lean.Pool;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -12,7 +13,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        LeanPool.Despawn(gameObject);
     }
     // Update is called once per frame
     void Update()

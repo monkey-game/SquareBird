@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Lean.Pool;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject winLine;
     [SerializeField] private GameObject BulletOb;
     [SerializeField] private float interval;
-    public UnityEvent eventDestroy;
     private Rigidbody2D body;
     private GameObject lastBlock;
     private bool isWinLine = false;
@@ -23,11 +23,14 @@ public class PlayerManager : MonoBehaviour
     private Transform TrapTrans;
     public AudioSource DeadAudio;
     public AudioSource[] eggdrop;
+    private TrailRenderer trailRenderer;
+    public bool ResetBlock;
 
     // Start is called before the first frame update
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        trailRenderer = GetComponent<TrailRenderer>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -56,6 +59,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("WinLine"))
         {
             isWinLine = true;
+            trailRenderer.enabled = false;
             StartCoroutine(WaitForDestroyBlock());
             StopBullet();
         }
@@ -80,13 +84,14 @@ public class PlayerManager : MonoBehaviour
             {
                 CreateBullet();
                 body.gravityScale = 4;
-                eventDestroy?.Invoke();
             }
             if (GameController.Instance.CountPerfect >= 3)
             {
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
-            }        
+            }
+            if(!trailRenderer.enabled)
+            trailRenderer.enabled= true;        
         }
         if(IsReset)
         {
@@ -124,6 +129,7 @@ public class PlayerManager : MonoBehaviour
 
     private void StopBullet()
     {
+        ResetBlock = false;
         StartShooting = false;
         GameController.Instance.CountPerfect = 0;
         GameController.Instance.ResetBird = true;
@@ -132,17 +138,18 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator WaitForDestroyBlock()
     {
-        yield return new WaitForSeconds(2);
-        eventDestroy?.Invoke();
+        yield return new WaitForSeconds(1);
         isWinLine = false;
+        LeanPool.DespawnAll();
     }
 
     private void CreateBullet()
     {
         if (Time.time > nextBulletTime)
         {
+            ResetBlock = true;
             nextBulletTime = Time.time + interval;
-            var bullet = Instantiate(BulletOb, transform.position + new Vector3(0.8f, -0.1f, 0), transform.rotation);
+            var bullet = LeanPool.Spawn(BulletOb, transform.position + new Vector3(0.8f, -0.1f, 0), transform.rotation);
         }
     }
     private void IdleDie()
@@ -150,7 +157,6 @@ public class PlayerManager : MonoBehaviour
         if (!GameController.Instance.Mute)
             DeadAudio.Play();
         isStop = true;
-        eventDestroy?.Invoke();
         AnimationDie();
         GameController.Instance.GameOver();
     }
@@ -170,15 +176,17 @@ public class PlayerManager : MonoBehaviour
     }
     void CreateBlockUnderPlayer()
     {
+        if(!StartShooting){
         if (lastBlock == null)
         {
-            lastBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
+            lastBlock = LeanPool.Spawn(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
         }
         else
         {
             lastBlock.transform.position = lastBlock.transform.position - new Vector3(0, 0.7f, 0);
-            GameObject newBlock = Instantiate(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
+            GameObject newBlock = LeanPool.Spawn(BlockPre, transform.position - new Vector3(0.1f, 1, 0), Quaternion.identity);
             lastBlock = newBlock;
+        }
         }
     }
 }

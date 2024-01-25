@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Lean.Pool;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -20,14 +21,6 @@ public class Block : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
-    }
-    private void Start()
-    {
-        FindObjectOfType<PlayerManager>().eventDestroy.AddListener(DestroyByWin);
-    }
-    private void OnDestroy()
-    {
-        FindObjectOfType<PlayerManager>().eventDestroy.RemoveListener(DestroyByWin);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -69,7 +62,7 @@ public class Block : MonoBehaviour
         yield return new WaitForSeconds(5);
 
     //    PlayerManager.listBlock.RemoveAll(x => x.gameObject.name.Equals(gameObject.name));
-            Destroy(gameObject);
+            LeanPool.Despawn(gameObject);
        
     }
     private void Update()
@@ -81,10 +74,9 @@ public class Block : MonoBehaviour
             PosChild.x = PosParent.x - 0.1f;
             transform.position = PosChild;
         }
-    }
-    void DestroyByWin()
-    {
-        Destroy(gameObject);
+        if(player.GetComponent<PlayerManager>().ResetBlock){
+            LeanPool.DespawnAll();
+        }
     }
 
 

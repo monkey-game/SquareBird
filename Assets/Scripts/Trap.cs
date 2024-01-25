@@ -19,6 +19,7 @@ public class Trap : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            _particleSystem.Play();
             Destroy(gameObject);
         }
     }

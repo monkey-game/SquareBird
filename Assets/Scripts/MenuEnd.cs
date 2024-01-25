@@ -23,11 +23,11 @@ public class MenuEnd : MonoBehaviour
     }
     public void OnClickRestart()
     {
-        player.position = HomePos.position;
-        GameController.Instance.ResetCamera= true;
-        StartCoroutine(ResetCamara());
-        PlayerManager.IsReset = true;
+        // player.position = HomePos.position;
+        // GameController.Instance.ResetCamera= true;
+        // StartCoroutine(ResetCamara());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayerManager.IsReset = true;
     }
     public void OnClickRevive(){
         ADSManager.Instance.rewardedAds.LoadAd();

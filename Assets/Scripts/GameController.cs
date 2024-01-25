@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Lean.Pool;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform HomePos;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject[] listMap;
-    [SerializeField] private GameObject objGrass;
     public string NameBird;
     public short CountPerfect;
     public short Score;
@@ -118,7 +118,6 @@ public class GameController : MonoBehaviour
         ScoreManager.Instance.SaveBestScore();
         ADSManager.Instance.interstitialAd.LoadAd();
         ADSManager.Instance.interstitialAd.ShowAd();
-        EnableOrDisableGrass(false);
     }
     public void GameComplete()
     {
@@ -129,7 +128,6 @@ public class GameController : MonoBehaviour
         ScoreManager.Instance.SaveBestScore();
         Level++;
         player.Coin += 10;
-        EnableOrDisableGrass(false);
     }
     public void OnClickNextButton()
     {
@@ -159,10 +157,6 @@ public class GameController : MonoBehaviour
             Player.transform.position = HomePos.position;
             Level = level;
         }
-    }
-    public void EnableOrDisableGrass(bool value)
-    {
-        objGrass.SetActive(value);
     }
     private void Reward100Coin()
     {

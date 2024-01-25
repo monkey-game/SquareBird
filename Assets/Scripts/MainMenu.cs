@@ -50,6 +50,5 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
         ScoreManager.Instance.LoadBestScore();
-        GameController.Instance.EnableOrDisableGrass(true);
     }
 }
