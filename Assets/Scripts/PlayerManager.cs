@@ -21,6 +21,9 @@ public class PlayerManager : MonoBehaviour
     public static bool IsReset = false;
     public static bool IsRevive = false;
     private Transform TrapTrans;
+    public AudioSource DeadAudio;
+    public AudioSource[] eggdrop;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -108,6 +111,8 @@ public class PlayerManager : MonoBehaviour
             {
                 Jump();
                 CreateBlockUnderPlayer();
+                if(!GameController.Instance.Mute)
+                eggdrop[Random.Range(0,eggdrop.Length-1)].Play();
             }
         }
     }
@@ -142,6 +147,8 @@ public class PlayerManager : MonoBehaviour
     }
     private void IdleDie()
     {
+        if (!GameController.Instance.Mute)
+            DeadAudio.Play();
         isStop = true;
         eventDestroy?.Invoke();
         AnimationDie();

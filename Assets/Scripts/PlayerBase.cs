@@ -10,6 +10,8 @@
     public string SpritePlayer;
     public string SpriteGround;
     public string spriteBGround;
+    public bool NoADS;
+    public bool GoldPack;
 
 
     public PlayerBase(string id, string name)

@@ -38,6 +38,10 @@ public class ShopBullet : Shop
     private void Update()
     {
         RewardADS(indexWait);
+        if (GameController.Instance.player.GoldPack)
+        {
+            items[44].isUnlocker = true;
+        }
     }
     public override void BuyItem(int index)
     {

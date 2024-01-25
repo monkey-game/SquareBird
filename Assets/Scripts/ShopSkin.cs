@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,15 @@ public class ShopSkin : Shop
     void Update()
     {
         RewardADS(IndexItem);
+        if(GameController.Instance.player.NoADS)
+        {
+            items[37].isUnlocker = true;
+            items[38].isUnlocker = true;
+        }
+        if (GameController.Instance.player.GoldPack)
+        {
+            items[36].isUnlocker = true;
+        }
     }
     private void OnDestroy()
     {

@@ -28,11 +28,11 @@ public class IAPManager : MonoBehaviour
         }
         if (product.definition.id == ID_RemoveADS)
         {
-
+            GameController.Instance.player.NoADS = true;
         }
         if (product.definition.id == ID_GoldPack)
         {
-
+            GameController.Instance.player.GoldPack = true;
         }
     }
 

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +13,7 @@ public class ShopHouse : Shop
     [SerializeField] private Sprite[] ListImg;
     [SerializeField] private GameObject[] ListHouse;
     [SerializeField] private Sprite imageUsed;
+    [SerializeField] private GameObject ButtonGold;
     private Sprite SpriteChange;
     public ItemTemplate[] items;
     private int indexWait;
@@ -20,7 +23,7 @@ public class ShopHouse : Shop
         for (int i = 0; i < ListHouse.Length; i++)
         {
             int index = i;
-            ListHouse[index].GetComponentInChildren<Button>().onClick.AddListener(() => BuyItem(index));
+            ListHouse[index].GetComponentInChildren<Button>()?.onClick.AddListener(() => BuyItem(index));
         }
         LoadItemFromJson();
         LoadObjectFromItem();
@@ -29,6 +32,11 @@ public class ShopHouse : Shop
     private void Update()
     {
         RewardADS(indexWait);
+        if (GameController.Instance.player.GoldPack)
+        {
+            items[8].isUnlocker = true;
+            ButtonGold.SetActive(true);
+        }
     }
 
     public override void UpdateUI()
@@ -88,6 +96,11 @@ public class ShopHouse : Shop
         {
             if (items[i].isUnlocker)
             {
+                if(i == 8)
+                {
+                    ButtonGold.SetActive(true);
+                }
+                else
                 ListHouse[i].GetComponentInChildren<Button>().GetComponentInChildren<Image>().sprite = imageUsed;
             }
         }

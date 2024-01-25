@@ -36,6 +36,10 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             isPlay = true;
         }
     }
+    public void OnClickMute()
+    {
+        GameController.Instance.Mute = !GameController.Instance.Mute;
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -46,5 +50,6 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
         ScoreManager.Instance.LoadBestScore();
+        GameController.Instance.EnableOrDisableGrass(true);
     }
 }

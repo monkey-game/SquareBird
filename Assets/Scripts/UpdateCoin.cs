@@ -5,8 +5,12 @@ using UnityEngine.UI;
 
 public class UpdateCoin : MonoBehaviour
 {
-    [SerializeField] private List<Text> coinList;
     // Start is called before the first frame update
+    private Text coin;
+    private void Awake()
+    {
+        coin = GetComponent<Text>();
+    }
     void Start()
     {
         
@@ -15,12 +19,7 @@ public class UpdateCoin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var coin in coinList)
-        {
-            if(coin != null && coin.enabled)
-            {
-                coin.text = GameController.Instance.player.Coin.ToString();
-            }
-        }
+        if (coin != null)
+            coin.text = GameController.Instance.player.Coin.ToString();
     }
 }

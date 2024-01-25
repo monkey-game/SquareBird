@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform HomePos;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject[] listMap;
+    [SerializeField] private GameObject objGrass;
     public string NameBird;
     public short CountPerfect;
     public short Score;
@@ -36,6 +37,8 @@ public class GameController : MonoBehaviour
     private Transform temp;
     private GameObject MapTemp;
     public bool ResetCamera = false;
+    private bool WaitReward100Coin = false;
+    public bool Mute;
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -77,6 +80,7 @@ public class GameController : MonoBehaviour
         {
             TimeReset = Time.time;
         }
+        Reward100Coin();
     }
     private void OnDestroy()
     {
@@ -111,7 +115,10 @@ public class GameController : MonoBehaviour
         MainMenu.isStartGame = false;
         CanvasPlayer.SetActive(false);
         CanvasGameOver.SetActive(true);       
-        ScoreManager.Instance.SaveBestScore();    
+        ScoreManager.Instance.SaveBestScore();
+        ADSManager.Instance.interstitialAd.LoadAd();
+        ADSManager.Instance.interstitialAd.ShowAd();
+        EnableOrDisableGrass(false);
     }
     public void GameComplete()
     {
@@ -121,10 +128,12 @@ public class GameController : MonoBehaviour
         CanvasGameComplete.SetActive(true);
         ScoreManager.Instance.SaveBestScore();
         Level++;
+        player.Coin += 10;
+        EnableOrDisableGrass(false);
     }
     public void OnClickNextButton()
     {
-        if(Level == 0)
+        if(Level == 1)
         {
             Destroy(listMap[0].gameObject);
         }else
@@ -133,6 +142,12 @@ public class GameController : MonoBehaviour
         MapTemp = Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
         Player.transform.position = HomePos.position;
         GameController.Instance.ResetCamera = true;
+    }
+    public void ADS100Coin()
+    {
+        ADSManager.Instance.rewardedAds.LoadAd();
+        ADSManager.Instance.rewardedAds.ShowAd();
+        WaitReward100Coin = true;
     }
     public void LoadMap(byte level)
     {
@@ -143,6 +158,19 @@ public class GameController : MonoBehaviour
             MapTemp = Instantiate(listMap[level].gameObject, temp.position, Quaternion.identity);
             Player.transform.position = HomePos.position;
             Level = level;
+        }
+    }
+    public void EnableOrDisableGrass(bool value)
+    {
+        objGrass.SetActive(value);
+    }
+    private void Reward100Coin()
+    {
+        if (RewardADS&& WaitReward100Coin)
+        {
+            WaitReward100Coin = false;
+            RewardADS = false;
+            player.Coin += 100;
         }
     }
 }
