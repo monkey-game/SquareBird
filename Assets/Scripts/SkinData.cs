@@ -7,4 +7,6 @@ public class SkinData : ScriptableObject
     public Sprite[] animationSprites;
     public Sprite deathSprite;
     public bool hasAnimation;
+    public Color colorBlock;
+    public Gradient colorTrail;
 }

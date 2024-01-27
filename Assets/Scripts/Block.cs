@@ -15,12 +15,18 @@ public class Block : MonoBehaviour
     private Vector3 PosParent;
     private Vector3 PosChild;
     private bool isHittingWall;
+    private SpriteRenderer SpriteRender;
 
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
+        SpriteRender = GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        SpriteRender.color = SkinManager.instance.currentSkin.colorBlock;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

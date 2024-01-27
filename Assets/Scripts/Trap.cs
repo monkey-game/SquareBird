@@ -1,3 +1,4 @@
+using Lean.Pool;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -6,20 +7,17 @@ using UnityEngine;
 public class Trap : MonoBehaviour
 {
     // Start is called before the first frame update
-    private SpriteRenderer sprite;
-    private ParticleSystem _particleSystem;
-    private BoxCollider2D _boxCollider;
+    [SerializeField] private GameObject obj;
     private void Awake()
     {
-        _particleSystem = GetComponent<ParticleSystem>();
-        sprite = GetComponent<SpriteRenderer>();
-        _boxCollider = GetComponent<BoxCollider2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            _particleSystem.Play();
+            GameObject objSpawn = LeanPool.Spawn(obj,transform.position,Quaternion.identity);
+            objSpawn.GetComponent<ParticleSystem>().Play();
+            LeanPool.Despawn(objSpawn, 2);
             Destroy(gameObject);
         }
     }

@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Transform HomePos;
     [SerializeField] private GameObject Player;
     [SerializeField] private GameObject[] listMap;
+    [SerializeField] private ParticleSystem effWin;
+    [SerializeField] private ParticleSystem effWin_2;
     public string NameBird;
     public short CountPerfect;
     public short Score;
@@ -39,6 +41,7 @@ public class GameController : MonoBehaviour
     public bool ResetCamera = false;
     private bool WaitReward100Coin = false;
     public bool Mute;
+  
     private void Awake()
     {
       //  DontDestroyOnLoad(this);
@@ -128,6 +131,8 @@ public class GameController : MonoBehaviour
         ScoreManager.Instance.SaveBestScore();
         Level++;
         player.Coin += 10;
+        effWin.Play();
+        effWin_2.Play();
     }
     public void OnClickNextButton()
     {

@@ -90,7 +90,8 @@ public class PlayerManager : MonoBehaviour
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
             }
-            if(!trailRenderer.enabled)
+            if (!trailRenderer.enabled)
+                trailRenderer.colorGradient = SkinManager.instance.currentSkin.colorTrail;
             trailRenderer.enabled= true;        
         }
         if(IsReset)

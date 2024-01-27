@@ -26,7 +26,6 @@ public class Util:MonoBehaviour
     public static void GetPlayerFromJson(PlayerBase pl)
     {
         string Path = Application.persistentDataPath + "/player.json";
-        File.Delete(Path);
         if (File.Exists(Path))
         {
             GameController.Instance.player = new PlayerBase(pl.Id,pl.name);
