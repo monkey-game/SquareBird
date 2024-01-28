@@ -148,7 +148,6 @@ public class GameController : MonoBehaviour
     }
     public void ADS100Coin()
     {
-        ADSManager.Instance.rewardedAds.LoadAd();
         ADSManager.Instance.rewardedAds.ShowAd();
         WaitReward100Coin = true;
     }

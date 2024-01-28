@@ -30,11 +30,17 @@ public class Util:MonoBehaviour
         {
             GameController.Instance.player = new PlayerBase(pl.Id,pl.name);
             string Player = File.ReadAllText(Path);
+            if(GameController.Instance.player.Coin >= 1000){
+                Social.ReportProgress("CgkIr6b-jqcDEAIQBg",100.0f,(bool Success)=>{});
+            }
             JsonUtility.FromJsonOverwrite(Player, GameController.Instance.player);
         }
         else
         {
             SaveToPlayerJson(pl);
+            Social.ReportProgress("CgkIr6b-jqcDEAIQBQ",0.0f,(bool Success)=>{});
+            Social.ReportProgress("CgkIr6b-jqcDEAIQBg",0.0f,(bool Success)=>{});
+            MainMenu.isNewBie = true;
             GameController.Instance.player = pl;
         }
     }

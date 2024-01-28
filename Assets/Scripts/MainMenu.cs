@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GooglePlayGames;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     private bool isPlay;
     [SerializeField]private GameObject CanvasPlayer;
     [SerializeField]private Transform TransformPlayer;
+    public static bool isNewBie;
     private void Awake()
     {
       //  DontDestroyOnLoad(gameObject);     
@@ -50,5 +52,10 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
         ScoreManager.Instance.LoadBestScore();
+        PlayGamesPlatform.Instance.IncrementAchievement("CgkIr6b-jqcDEAIQBQ",5,(bool success)=>{});
+        if(isNewBie){
+        Social.ReportProgress("CgkIr6b-jqcDEAIQBw",100.0f,(bool Success)=>{});
+        isNewBie = false;
+        }
     }
 }

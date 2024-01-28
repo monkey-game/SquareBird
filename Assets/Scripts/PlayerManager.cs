@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Home"))
         {
+            isWinLine = false;
             isStop = true;
             GameController.Instance.GameComplete();
             isStop = false;
@@ -90,7 +91,7 @@ public class PlayerManager : MonoBehaviour
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
             }
-            if (!trailRenderer.enabled)
+            if (!trailRenderer.enabled&!isStop)
                 trailRenderer.colorGradient = SkinManager.instance.currentSkin.colorTrail;
             trailRenderer.enabled= true;        
         }
@@ -140,7 +141,6 @@ public class PlayerManager : MonoBehaviour
     IEnumerator WaitForDestroyBlock()
     {
         yield return new WaitForSeconds(1);
-        isWinLine = false;
         LeanPool.DespawnAll();
     }
 
