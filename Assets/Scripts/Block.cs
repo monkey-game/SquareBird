@@ -42,23 +42,23 @@ public class Block : MonoBehaviour
                 {
                     isAttached = false;
                 }
-            else if ((blockPosition.y - obstaclePosition.y) < 0.65f) 
+                else if ((blockPosition.y - obstaclePosition.y) < 0.65f)
                 {
-                isAttached = false;
+                    isAttached = false;
 
-            }
-            else
-            {
-                ScoreManager.Instance.scoreNow += 10;
-            }           
+                }
+                else
+                {
+                if (!GameController.Instance.collidedObjects.Contains(collision.gameObject))
+                {
+                    GameController.Instance.collidedObjects.Add(collision.gameObject);
+                    ScoreManager.Instance.scoreNow += 10;
+                }
+                }          
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Perfect"))
-        {
-            GameController.Instance.CountPerfect++;
-        }
     }
     // Start is called before the first frame update
 
@@ -83,6 +83,10 @@ public class Block : MonoBehaviour
         if(player.GetComponent<PlayerManager>().ResetBlock){
             LeanPool.DespawnAll();
         }
+    }
+    private bool isTrapDown()
+    {
+        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 1f, barrier);
     }
 
 

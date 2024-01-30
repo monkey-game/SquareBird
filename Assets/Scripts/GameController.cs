@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     public bool ResetCamera = false;
     private bool WaitReward100Coin = false;
     public bool Mute;
+    public HashSet<GameObject> collidedObjects = new HashSet<GameObject>();
   
     private void Awake()
     {
@@ -121,6 +122,7 @@ public class GameController : MonoBehaviour
         ScoreManager.Instance.SaveBestScore();
         ADSManager.Instance.interstitialAd.LoadAd();
         ADSManager.Instance.interstitialAd.ShowAd();
+        collidedObjects.Clear();
     }
     public void GameComplete()
     {
@@ -133,6 +135,7 @@ public class GameController : MonoBehaviour
         player.Coin += 10;
         effWin.Play();
         effWin_2.Play();
+        collidedObjects.Clear();
     }
     public void OnClickNextButton()
     {

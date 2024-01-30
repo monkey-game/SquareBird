@@ -44,15 +44,20 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))
         {
             Vector3 blockPosition = transform.position;
-            Vector3 obstaclePosition = collision.gameObject.transform.position;          
-            if ((blockPosition.y < obstaclePosition.y)||((blockPosition.y - obstaclePosition.y) < 0.75f))
+            Vector3 obstaclePosition = collision.gameObject.transform.position;
+            if ((blockPosition.y < obstaclePosition.y) || ((blockPosition.y - obstaclePosition.y) < 0.75f))
             {
                 IdleDie();
                 TrapTrans = collision.gameObject.transform;
 
-            }else
-            if(!isStop)
-            ScoreManager.Instance.scoreNow += 10;
+            }
+            else
+            {
+                if (!isStop)
+                {
+                        ScoreManager.Instance.scoreNow += 10;
+                }
+            }
         }       
     }
     private void OnTriggerEnter2D(Collider2D collision)

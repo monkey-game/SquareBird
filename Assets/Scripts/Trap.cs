@@ -18,7 +18,7 @@ public class Trap : MonoBehaviour
             GameObject objSpawn = LeanPool.Spawn(obj,transform.position,Quaternion.identity);
             objSpawn.GetComponent<ParticleSystem>().Play();
             LeanPool.Despawn(objSpawn, 2);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     void Start()
