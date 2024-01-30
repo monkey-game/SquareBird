@@ -2677,6 +2677,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 925933732532692154, guid: 2650dd8a7d2fdc54fac253c25d100cbb, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 925933732532692159, guid: 2650dd8a7d2fdc54fac253c25d100cbb, type: 3}
       propertyPath: m_Size.x
       value: 10

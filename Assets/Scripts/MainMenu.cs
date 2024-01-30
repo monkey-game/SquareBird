@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     private bool isPlay;
     [SerializeField]private GameObject CanvasPlayer;
     [SerializeField]private Transform TransformPlayer;
+    [SerializeField] private GameObject ObjX;
     public static bool isNewBie;
     private void Awake()
     {
@@ -37,10 +38,16 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             animation.Play();
             isPlay = true;
         }
+        if(GameController.Instance.Mute)
+        {
+            ObjX.SetActive(true);
+        }else
+            ObjX.SetActive(false);
     }
     public void OnClickMute()
     {
         GameController.Instance.Mute = !GameController.Instance.Mute;
+        Debug.Log(GameController.Instance.Mute);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -48,7 +55,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         isStartGame = true;       
         Debug.Log("StartGame");
         gameObject.SetActive(false);
-        CanvasStartGame.transform.parent = TransformPlayer;
+        CanvasPlayer.transform.parent = TransformPlayer;
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
         ScoreManager.Instance.LoadBestScore();

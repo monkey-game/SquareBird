@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrier:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2048
   player: {fileID: 0}
 --- !u!61 &504514006348374533
 BoxCollider2D:
