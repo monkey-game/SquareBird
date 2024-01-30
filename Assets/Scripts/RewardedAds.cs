@@ -53,6 +53,8 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
             _showAdButton.interactable = false;
             // Then show the ad:
             Advertisement.Show(_adUnitId, this);
+        }else{
+            GameController.Instance.RewardADS = true;
         }
     }
 

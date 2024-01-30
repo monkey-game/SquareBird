@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
     private bool WaitReward100Coin = false;
     public bool Mute;
     public HashSet<GameObject> collidedObjects = new HashSet<GameObject>();
+    public bool Heptic;
   
     private void Awake()
     {

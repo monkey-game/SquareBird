@@ -31,6 +31,8 @@ public class InterstitialAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         {
             Debug.Log("Showing Ad: " + _adUnitId);
             Advertisement.Show(_adUnitId, this);
+        }else{
+            GameController.Instance.RewardADS = true;
         }
     }
 

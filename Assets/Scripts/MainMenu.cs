@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
     [SerializeField]private GameObject CanvasPlayer;
     [SerializeField]private Transform TransformPlayer;
     [SerializeField] private GameObject ObjX;
+    [SerializeField] private GameObject ObjHelptic;
     public static bool isNewBie;
     private void Awake()
     {
@@ -43,11 +44,21 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
             ObjX.SetActive(true);
         }else
             ObjX.SetActive(false);
+        if(GameController.Instance.Heptic)
+        {
+            ObjHelptic.SetActive(true);
+        }else
+            ObjHelptic.SetActive(false);
+
     }
     public void OnClickMute()
     {
         GameController.Instance.Mute = !GameController.Instance.Mute;
-        Debug.Log(GameController.Instance.Mute);
+        isPlay = false;
+    }
+    public void OnClickHeptic(){
+        GameController.Instance.Heptic = !GameController.Instance.Heptic;
+        isPlay = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)

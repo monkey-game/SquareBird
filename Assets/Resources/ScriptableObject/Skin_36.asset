@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6629411ae81efa34d8d0b3b2a838aaeb, type: 3}
   deathSprite: {fileID: 21300000, guid: 8d5f4424652d6b140bc357bcb758003f, type: 3}
   hasAnimation: 0
-  colorBlock: {r: 0.94117653, g: 0.8117648, b: 0.49803925, a: 0}
+  colorBlock: {r: 0.94117653, g: 0.8117648, b: 0.49803925, a: 1}
   colorTrail:
     serializedVersion: 2
     key0: {r: 0.99215686, g: 0.90588236, b: 0.19215687, a: 1}
