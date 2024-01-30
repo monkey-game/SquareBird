@@ -96,9 +96,8 @@ public class PlayerManager : MonoBehaviour
                 StartShooting = true;
                 StartCoroutine(StopCreateBullet());
             }
-            if (!trailRenderer.enabled&!isStop)
+            if (trailRenderer.enabled)
                 trailRenderer.colorGradient = SkinManager.instance.currentSkin.colorTrail;
-            trailRenderer.enabled= true;        
         }
         if(IsReset)
         {
@@ -165,6 +164,7 @@ public class PlayerManager : MonoBehaviour
         isStop = true;
         AnimationDie();
         GameController.Instance.GameOver();
+        trailRenderer.enabled = false;
     }
 
     private void AnimationDie()

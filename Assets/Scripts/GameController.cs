@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Lean.Pool;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -148,6 +149,7 @@ public class GameController : MonoBehaviour
         MapTemp = Instantiate(listMap[Level].gameObject, temp.position, Quaternion.identity);
         Player.transform.position = HomePos.position;
         GameController.Instance.ResetCamera = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ADS100Coin()
     {

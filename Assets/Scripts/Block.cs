@@ -40,7 +40,7 @@ public class Block : MonoBehaviour
             Vector3 obstaclePosition = collision.gameObject.transform.position;
                 if (blockPosition.y < obstaclePosition.y)
                 {
-                    isAttached = false;
+                isAttached = false;
                 }
                 else if ((blockPosition.y - obstaclePosition.y) < 0.65f)
                 {

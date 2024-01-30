@@ -56,6 +56,7 @@ public class MainMenu : MonoBehaviour, IPointerClickHandler
         Debug.Log("StartGame");
         gameObject.SetActive(false);
         CanvasPlayer.transform.parent = TransformPlayer;
+        TransformPlayer.GetComponent<TrailRenderer>().enabled = true;
         CanvasPlayer.SetActive(true);
         ScoreManager.Instance.scoreNow = 0;
         ScoreManager.Instance.LoadBestScore();
