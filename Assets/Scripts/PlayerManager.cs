@@ -120,6 +120,7 @@ public class PlayerManager : MonoBehaviour
             transform.Translate(Vector2.right * Time.deltaTime * speed);
             if (Input.GetMouseButtonDown(0)&&!isWinLine)
             {
+                if(!GameController.Instance.Heptic)
                 Handheld.Vibrate();
                 Jump();
                 CreateBlockUnderPlayer();
