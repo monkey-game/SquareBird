@@ -9366,7 +9366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 307.625, y: -486.66}
+  m_AnchoredPosition: {x: 307.625, y: -486.66003}
   m_SizeDelta: {x: 353.55, y: 345.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &495021106
@@ -25041,7 +25041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -84}
+  m_AnchoredPosition: {x: 0, y: -84}
   m_SizeDelta: {x: 215.66, y: 110.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &746933189
@@ -32426,7 +32426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 772.375, y: -486.66}
+  m_AnchoredPosition: {x: 772.375, y: -486.66003}
   m_SizeDelta: {x: 353.55, y: 345.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1132682516
@@ -44181,10 +44181,6 @@ MonoBehaviour:
   items:
   - Id: 0
     price: 0
-    isUnlocker: 0
-    isUsed: 0
-  - Id: 0
-    price: 0
     isUnlocker: 1
     isUsed: 0
   - Id: 0
@@ -44352,11 +44348,15 @@ MonoBehaviour:
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
+    isUnlocker: 0
+    isUsed: 0
+  - Id: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
 --- !u!1 &1650008990
@@ -55710,18 +55710,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1975880973}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1975880974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56754,31 +56742,31 @@ MonoBehaviour:
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   - Id: 0
-    price: 0
+    price: 999999
     isUnlocker: 0
     isUsed: 0
   prefabPlayer: {fileID: 5940267146974759228, guid: 6046857348969b64ea2e1510361ec194, type: 3}

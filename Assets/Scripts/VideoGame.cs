@@ -10,6 +10,7 @@ public class VideoGame : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         videoPlayer = GetComponent<VideoPlayer>();
     }
     void Start()
